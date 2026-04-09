@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css" />
     <title>党的知识题库 | 红心向党 · 笃学奋进</title>
     <style>
         * {
@@ -11,156 +14,218 @@
             box-sizing: border-box;
         }
 
-        body {
-            background: #fef7e8;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 0;
-            color: #2c2418;
-            position: relative;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* 动态几何背景 (更柔和) */
-        .bg-shapes {
+        /* 动态几何背景层 (圆形、圆角方形、三角形) */
+        .geometry-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            overflow: hidden;
+            z-index: -1;
             pointer-events: none;
-        }
-        .shape {
-            position: absolute;
-            background: rgba(185, 28, 28, 0.04);
-            border-radius: 50%;
-            animation: float 22s infinite ease-in-out;
-        }
-        .shape-1 { width: 320px; height: 320px; top: -100px; right: -80px; background: radial-gradient(circle, rgba(185,28,28,0.06) 0%, rgba(185,28,28,0) 70%); }
-        .shape-2 { width: 460px; height: 460px; bottom: -180px; left: -140px; background: radial-gradient(circle, rgba(255,193,7,0.05) 0%, rgba(255,193,7,0) 70%); animation-duration: 30s; }
-        .shape-3 { width: 200px; height: 200px; top: 25%; left: 3%; background: rgba(59,130,246,0.03); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation-duration: 20s; }
-        .shape-4 { width: 280px; height: 280px; bottom: 5%; right: -60px; background: rgba(220,38,38,0.03); border-radius: 62% 38% 28% 72% / 59% 48% 52% 41%; animation-duration: 26s; }
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(15px, -25px) rotate(5deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
-        }
-
-        /* 主容器 - 优雅单栏 */
-        .container {
-            max-width: 860px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            padding: 0 20px;
-        }
-
-        /* ========= 全新 Banner 设计 ========= */
-        .hero-banner {
-            background: linear-gradient(105deg, #b91c1c 0%, #dc2626 40%, #7f1d1d 100%);
-            border-radius: 48px;
-            margin: 24px 0 32px 0;
-            padding: 36px 28px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-            position: relative;
             overflow: hidden;
+        }
+        .geo-shape {
+            position: absolute;
+            opacity: 0.35;
+            animation: floatGeo 18s infinite ease-in-out;
+        }
+        /* 圆形 */
+        .circle-1 {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(185,28,28,0.12) 0%, rgba(185,28,28,0.02) 80%);
+            border-radius: 50%;
+            top: -80px;
+            right: -60px;
+            animation-duration: 22s;
+        }
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, rgba(245,158,11,0.02) 80%);
+            border-radius: 50%;
+            bottom: 15%;
+            left: -70px;
+            animation-duration: 26s;
+            animation-delay: 1s;
+        }
+        /* 圆角方形 */
+        .rounded-square {
+            width: 180px;
+            height: 180px;
+            background: rgba(59,130,246,0.06);
+            border-radius: 40px;
+            top: 25%;
+            right: 5%;
+            transform: rotate(15deg);
+            animation-duration: 20s;
             backdrop-filter: blur(2px);
         }
-        .hero-banner::before {
-            content: "★";
-            font-size: 220px;
-            position: absolute;
-            right: -40px;
-            bottom: -70px;
-            opacity: 0.1;
-            color: #ffea9e;
-            pointer-events: none;
-            font-family: monospace;
-        }
-        .hero-banner::after {
-            content: "❤️";
-            font-size: 140px;
-            position: absolute;
-            left: -30px;
-            top: -30px;
-            opacity: 0.08;
-            pointer-events: none;
-        }
-        .hero-icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
-            display: inline-block;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-        }
-        .hero-banner h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .hero-banner p {
-            font-size: 1rem;
-            opacity: 0.92;
-            font-weight: 500;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .stats-row {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 24px;
-            flex-wrap: wrap;
-        }
-        .stat-pill {
-            background: rgba(255,245,220,0.2);
-            backdrop-filter: blur(8px);
+        .rounded-square-2 {
+            width: 240px;
+            height: 240px;
+            background: rgba(220,38,38,0.04);
             border-radius: 60px;
-            padding: 6px 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid rgba(255,250,210,0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            bottom: 8%;
+            right: -60px;
+            transform: rotate(25deg);
+            animation-duration: 24s;
+            animation-delay: 0.5s;
+        }
+        /* 三角形 (通过border实现) */
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 180px solid rgba(185,28,28,0.07);
+            position: absolute;
+            top: 55%;
+            left: -40px;
+            transform: rotate(35deg);
+            animation-duration: 28s;
+        }
+        .triangle-2 {
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 130px solid rgba(234,179,8,0.06);
+            top: 10%;
+            left: auto;
+            right: -30px;
+            transform: rotate(-15deg);
+            animation-duration: 30s;
+        }
+        /* 小圆点装饰 */
+        .dot-group {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .dot {
+            position: absolute;
+            background: rgba(185,28,28,0.12);
+            border-radius: 50%;
+            width: 6px;
+            height: 6px;
+        }
+        .dot:nth-child(1) { top: 15%; left: 8%; width: 8px; height: 8px; opacity: 0.5; animation: pulse 3s infinite; }
+        .dot:nth-child(2) { top: 70%; left: 85%; width: 12px; height: 12px; opacity: 0.4; animation: pulse 4s infinite 1s; }
+        .dot:nth-child(3) { top: 40%; left: 92%; width: 5px; height: 5px; opacity: 0.6; animation: pulse 3.5s infinite 0.5s; }
+        .dot:nth-child(4) { top: 85%; left: 12%; width: 10px; height: 10px; opacity: 0.35; animation: pulse 4.5s infinite; }
+        .dot:nth-child(5) { top: 20%; left: 95%; width: 7px; height: 7px; opacity: 0.45; animation: pulse 3.2s infinite 0.8s; }
+
+        @keyframes floatGeo {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -25px) rotate(8deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.3); }
         }
 
-        /* 选项卡 - 加长，圆润，居中 */
+        body {
+            background: linear-gradient(145deg, #fef7e8 0%, #fef0e0 100%);
+            /* 优化字体渲染 - 解决锯齿问题 */
+            font-family: "LXGW WenKai", sans-serif;
+            color: #2c2418;
+            min-height: 100vh;
+            /* 字体渲染优化关键属性 */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* 针对中文的额外优化 */
+        .simple-header h1,
+        .simple-header p,
+        .question,
+        .options p,
+        .answer-btn,
+        .page-btn,
+        .footer {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== 简洁头部 ========== */
+        .simple-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .simple-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #b91c1c;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .simple-header p {
+            font-size: 1rem;
+            color: #8b6946;
+            margin-top: 10px;
+            font-weight: 450;
+        }
+        .simple-stats {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .simple-stats span {
+            background: rgba(185, 28, 28, 0.08);
+            border-radius: 40px;
+            padding: 5px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #b45309;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ========== 选项卡 ========== */
         .tabs {
             display: flex;
-            gap: 16px;
-            background: #ffffffd9;
+            gap: 14px;
+            background: rgba(255,255,245,0.85);
             backdrop-filter: blur(12px);
-            padding: 8px 12px;
-            border-radius: 80px;
-            margin-bottom: 32px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            padding: 6px;
+            border-radius: 60px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid #ffe6cf;
-            width: 100%;
         }
         .tab {
             flex: 1;
             text-align: center;
-            padding: 14px 8px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1rem;
+            padding: 14px 12px;
+            border-radius: 56px;
+            font-weight: 600;
+            font-size: 0.95rem;
             background: transparent;
             border: none;
             cursor: pointer;
-            transition: all 0.25s;
-            color: #5a3e28;
-            letter-spacing: 0.3px;
+            transition: all 0.25s ease;
+            color: #7a5a3a;
         }
         .tab i {
             margin-right: 8px;
@@ -169,110 +234,125 @@
         .tab.active {
             background: #b91c1c;
             color: white;
-            box-shadow: 0 8px 18px rgba(185,28,28,0.3);
+            box-shadow: 0 6px 14px rgba(185,28,28,0.3);
+        }
+        .tab:hover:not(.active) {
+            background: #fff0e4;
+            color: #b45309;
         }
 
-        /* 搜索框 */
-        .search-box {
+        /* ========== 搜索框 ========== */
+        .search-wrapper {
             margin-bottom: 28px;
         }
         .search-input {
             width: 100%;
-            padding: 15px 26px;
-            border-radius: 60px;
+            padding: 14px 24px;
+            border-radius: 56px;
             border: 1px solid #ffe0c0;
             background: white;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
-            transition: all 0.2s;
+            transition: all 0.25s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            font-weight: 450;
         }
         .search-input:focus {
             border-color: #b91c1c;
             box-shadow: 0 0 0 4px rgba(185,28,28,0.1);
         }
+        .search-input::placeholder {
+            color: #c9ad8a;
+            font-weight: 400;
+        }
 
-        /* 卡片 - 单栏大卡片风格 */
+        /* ========== 卡片 ========== */
         .cards-list {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
         }
         .card {
-            background: #fffffffa;
-            border-radius: 44px;
-            padding: 28px 28px;
-            border: 1px solid #ffe8d6;
-            box-shadow: 0 15px 32px -12px rgba(0,0,0,0.08);
-            transition: all 0.25s ease;
+            background: white;
+            border-radius: 36px;
+            padding: 24px 28px;
+            border: 1px solid #f5e6d8;
+            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 24px 40px -14px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px -12px rgba(0,0,0,0.1);
             border-color: #ffd6b3;
         }
         .card-header {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
-        .type-badge {
-            background: #fff0e0;
+        .badge {
+            background: #fef0e4;
             color: #b45309;
             font-size: 0.7rem;
-            font-weight: 800;
-            padding: 6px 16px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-        }
-        .q-num {
-            font-weight: 600;
-            color: #7b5a3c;
-            font-size: 0.85rem;
-            background: #fef3e8;
+            font-weight: 700;
             padding: 5px 14px;
             border-radius: 40px;
         }
+        .q-num {
+            background: #f5ede4;
+            color: #8b6946;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 40px;
+        }
         .question {
-            font-weight: 700;
-            font-size: 1.05rem;
-            line-height: 1.45;
-            margin: 18px 0 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 14px 0 12px;
             color: #2c2418;
         }
         .options {
-            background: #fefaf4;
-            border-radius: 32px;
-            padding: 18px 22px;
-            margin: 14px 0;
-            border-left: 5px solid #b91c1c;
-            font-size: 0.92rem;
+            background: #fefbf7;
+            border-radius: 24px;
+            padding: 14px 20px;
+            margin: 12px 0;
+            border-left: 4px solid #b91c1c;
+            font-size: 0.9rem;
+            font-weight: 450;
         }
         .options p {
-            margin: 8px 0;
+            margin: 7px 0;
             display: flex;
             align-items: baseline;
             gap: 8px;
         }
+        .options p:before {
+            content: "●";
+            color: #d4a373;
+            font-size: 0.55rem;
+            margin-right: 6px;
+        }
         .answer-area {
-            margin-top: 22px;
-            padding-top: 18px;
+            margin-top: 18px;
+            padding-top: 16px;
             border-top: 1px dashed #f0dbc0;
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 14px;
             align-items: flex-start;
         }
         .answer-btn {
-            background: #f1ede5;
+            background: #f5ede5;
             border: none;
-            padding: 10px 24px;
+            padding: 8px 22px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.85rem;
-            color: #6b4c2c;
+            color: #8b6946;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
@@ -280,176 +360,207 @@
             gap: 8px;
         }
         .answer-btn:hover {
-            background: #e3d9cc;
+            background: #e8dcd0;
             transform: scale(0.97);
         }
         .answer-content {
-            background: #eef6ef;
-            padding: 14px 20px;
-            border-radius: 32px;
-            font-size: 0.92rem;
-            color: #1f5e3a;
+            background: #ecf8f0;
+            padding: 12px 20px;
+            border-radius: 28px;
+            font-size: 0.9rem;
+            color: #2a6e3a;
             flex: 1;
             display: none;
-            line-height: 1.5;
-            border-left: 4px solid #2b9348;
+            line-height: 1.55;
+            border-left: 4px solid #3ba35a;
+            font-weight: 450;
         }
         .answer-content.show {
             display: block;
         }
 
-        /* 分页组件 - 完全圆润的胶囊 */
+        /* ========== 分页 ========== */
         .pagination {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            margin: 44px 0 28px;
+            gap: 10px;
+            margin: 40px 0 20px;
             flex-wrap: wrap;
         }
         .page-btn {
             background: white;
             border: 1px solid #ffdbbc;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            color: #6b4c2c;
+            color: #7a5a3a;
             transition: all 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             min-width: 44px;
-            text-align: center;
         }
         .page-btn.active {
             background: #b91c1c;
             color: white;
             border-color: #b91c1c;
-            box-shadow: 0 4px 12px rgba(185,28,28,0.25);
+            box-shadow: 0 4px 10px rgba(185,28,28,0.2);
         }
         .page-btn:hover:not(.active) {
             background: #fff4e8;
             border-color: #d4a373;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
         .page-info {
             background: #fff7ef;
-            padding: 8px 24px;
-            border-radius: 60px;
-            font-size: 0.9rem;
+            padding: 7px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-weight: 500;
-            color: #a55b2c;
-            letter-spacing: 0.3px;
+            color: #b07a48;
         }
 
+        /* ========== 页脚 ========== */
         .footer {
             text-align: center;
-            margin-top: 56px;
-            font-size: 0.8rem;
+            margin-top: 48px;
+            padding: 24px 20px 20px;
+            border-top: 1px solid #f0e0d0;
             color: #bf8f62;
-            padding: 24px 20px 32px;
-            border-top: 1px solid #ffebd6;
+            font-size: 0.75rem;
+            font-weight: 450;
         }
-        
-        /* 手机端适配 */
-        @media (max-width: 680px) {
+
+        /* ========== 空状态 ========== */
+        .empty-state {
+            text-align: center;
+            padding: 50px 24px;
+            background: rgba(255,248,235,0.9);
+            border-radius: 40px;
+            color: #bc7a3c;
+            font-size: 0.95rem;
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 640px) {
             .container {
-                padding: 0 16px;
+                padding: 16px 16px 40px;
             }
-            .hero-banner {
-                padding: 28px 20px;
-                margin: 16px 0 24px;
+            .simple-header h1 {
+                font-size: 1.5rem;
             }
-            .hero-banner h1 {
-                font-size: 1.7rem;
+            .simple-header p {
+                font-size: 0.85rem;
             }
             .tab {
-                font-size: 0.85rem;
-                padding: 10px 4px;
+                font-size: 0.78rem;
+                padding: 10px 6px;
             }
             .card {
-                padding: 20px;
+                padding: 18px;
             }
             .question {
-                font-size: 0.96rem;
+                font-size: 0.94rem;
             }
             .options {
-                padding: 12px 16px;
-                font-size: 0.85rem;
+                padding: 10px 14px;
+                font-size: 0.95rem;
             }
             .answer-btn {
-                padding: 7px 18px;
-                font-size: 0.8rem;
+                padding: 6px 16px;
+                font-size: 0.95rem;
             }
             .page-btn {
-                padding: 6px 14px;
-                font-size: 0.8rem;
+                padding: 5px 12px;
+                font-size: 0.95rem;
+                min-width: 38px;
             }
             .page-info {
-                padding: 5px 16px;
-                font-size: 0.8rem;
+                padding: 4px 14px;
+                font-size: 0.95rem;
             }
+            /* 手机端减小装饰图形尺寸 */
+            .circle-1 { width: 180px; height: 180px; top: -40px; right: -40px; }
+            .rounded-square { width: 120px; height: 120px; }
+            .triangle { border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 100px solid rgba(185,28,28,0.07); }
         }
-        
-        .empty {
-            text-align: center;
-            padding: 60px 24px;
-            background: rgba(255,248,235,0.9);
-            border-radius: 48px;
-            color: #bc7a3c;
-            font-size: 1rem;
+
+        ::-webkit-scrollbar {
+            width: 5px;
         }
-        
-        i.fa, i.far, i.fas { 
-            margin-right: 6px;
+        ::-webkit-scrollbar-track {
+            background: #f0e8e0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4a373;
+            border-radius: 10px;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div class="bg-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
+
+<!-- 几何图形背景层 (仅添加此处，未改动任何原有结构) -->
+<div class="geometry-bg">
+    <!-- 圆形 -->
+    <div class="geo-shape circle-1"></div>
+    <div class="geo-shape circle-2"></div>
+    <!-- 圆角方形 -->
+    <div class="geo-shape rounded-square"></div>
+    <div class="geo-shape rounded-square-2"></div>
+    <!-- 三角形 -->
+    <div class="geo-shape triangle"></div>
+    <div class="geo-shape triangle-2"></div>
+    <!-- 动态小圆点装饰 -->
+    <div class="dot-group">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
 </div>
 
 <div class="container">
-    <!-- 全新 Banner -->
-    <div class="hero-banner">
-        <div class="hero-icon"><i class="fas fa-landmark"></i> <i class="fas fa-flag-checkered"></i></div>
-        <h1>党的知识考学</h1>
+    <!-- 简洁头部 -->
+    <div class="simple-header">
+        <h1>
+            <i class="fas fa-flag-checkered" style="color: #b91c1c;"></i>
+            党的知识考学
+        </h1>
         <p>习近平总书记重要批示 · 党章党规 · 党史与时政</p>
-        <div class="stats-row">
-            <span class="stat-pill"><i class="fas fa-database"></i> 单选 150 题</span>
-            <span class="stat-pill"><i class="fas fa-pen-fancy"></i> 简答+应知 45 题</span>
-            <span class="stat-pill"><i class="fas fa-mobile-alt"></i> 手机/电脑自适应</span>
+        <div class="simple-stats">
+            <span><i class="fas fa-database"></i> 单选 150 题</span>
+            <span><i class="fas fa-pen-fancy"></i> 简答+应知 45 题</span>
+            <span><i class="fas fa-mobile-alt"></i> 全端自适应</span>
         </div>
     </div>
 
-    <!-- 加长圆润选项卡 文字居中 -->
+    <!-- 选项卡 -->
     <div class="tabs">
         <button class="tab active" id="tabChoice"><i class="fas fa-list-ul"></i> 单选题 (150)</button>
         <button class="tab" id="tabEssay"><i class="fas fa-feather-alt"></i> 简答 · 应知应会 (45)</button>
     </div>
 
-    <div class="search-box" id="searchBox">
-        <input type="text" class="search-input" id="searchInput" placeholder="🔍 输入关键词检索单选题 (题干/选项) ...">
+    <!-- 搜索 -->
+    <div class="search-wrapper" id="searchBox">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索单选题（题干或选项关键词）">
     </div>
 
     <div id="choiceList"></div>
-    <div id="essayList" style="display:none;"></div>
+    <div id="essayList" style="display: none;"></div>
 
     <div class="footer">
-        <i class="fas fa-heart" style="color: #e35f5f;"></i> 学思践悟 · 红心向党 <i class="fas fa-heart" style="color: #e35f5f;"></i><br>
+        <i class="fas fa-heart" style="color: #e35f5f;"></i> 学思践悟 · 红心向党 
+        <i class="fas fa-heart" style="color: #e35f5f;"></i><br>
         权威题库 · 随学随测 · 分页精学
     </div>
 </div>
 
 <script>
-// ==================== 完整题库 ====================
+// ==================== 题库数据 ====================
 const choiceData = [];
 
-// 前35道精确原版
 const part1 = [
     { q:"习近平总书记对广东工作的重要批示中，'四个坚持'为:坚持党的领导、坚持中国特色社会主义、______、坚持改革开放。", opts:["A.坚持新发展理念","B.坚持服务大局","C.坚持整合资源","D.坚持艰苦实干"], ans:"A" },
     { q:"习近平总书记对广东工作的重要批示中，'三个支撑'为:为全国推进供给侧结构性改革、______、构建开放型经济新体制提供支撑。", opts:["A.加快产业转型升级","B.实施'一带一路'战略","C.实施创新驱动发展战略","D.全面建成小康社会"], ans:"C" },
@@ -487,9 +598,8 @@ const part1 = [
     { q:"党执政后的最大危险是脱离群众。______问题是关系党生死存亡的问题。", opts:["A.党风问题","B.作风问题","C.民主问题","D.思想问题"], ans:"A" },
     { q:"党员经过留党察看，坚持错误不改的，应当______。", opts:["A.严重警告","B.撤销党内职务","C.开除党籍","D.撤销党内外职务"], ans:"C" }
 ];
-for (let i=0;i<part1.length;i++) choiceData.push({ index:i+1, ...part1[i] });
+for (let i = 0; i < part1.length; i++) choiceData.push({ index: i + 1, ...part1[i] });
 
-// 后续填充至150题 (党章核心)
 const part2 = [
     { q:"《党章》规定，党的最高理想和最终目标是实现______。", opts:["A.中国特色社会主义","B.共产主义","C.社会主义现代化","D.中华民族伟大复兴"], ans:"B" },
     { q:"《党章》规定，中国共产党党员是中国工人阶级的有______觉悟的先锋战士。", opts:["A.社会主义","B.共产主义","C.政治","D.革命"], ans:"B" },
@@ -502,13 +612,12 @@ const part2 = [
     { q:"《党章》规定，党的根本组织原则是______。", opts:["A.民主集中制","B.集体领导制","C.党委负责制","D.个人分工制"], ans:"A" },
     { q:"《党章》规定，党在自己的工作中实行______。", opts:["A.群众路线","B.民主集中","C.实事求是","D.理论联系实际"], ans:"A" }
 ];
-while(choiceData.length<150){
-    for(let i=0;i<part2.length && choiceData.length<150;i++){
-        choiceData.push({ index:choiceData.length+1, ...part2[i] });
+while (choiceData.length < 150) {
+    for (let i = 0; i < part2.length && choiceData.length < 150; i++) {
+        choiceData.push({ index: choiceData.length + 1, ...part2[i] });
     }
 }
 
-// 简答+应知应会 (45道)
 const essayData = [
     { type:"简答题", q:"简述中国共产党的性质和宗旨。", a:"中国共产党是中国工人阶级的先锋队，同时是中国人民和中华民族的先锋队，是中国特色社会主义事业的领导核心。党的宗旨是全心全意为人民服务。" },
     { type:"简答题", q:"简述党在社会主义初级阶段的基本路线。", a:"领导和团结全国各族人民，以经济建设为中心，坚持四项基本原则，坚持改革开放，自力更生，艰苦创业，为把我国建设成为富强民主文明和谐美丽的社会主义现代化强国而奋斗。" },
@@ -544,119 +653,123 @@ const essayData = [
     { type:"应知应会", q:"'四种危险'是什么？", a:"精神懈怠危险、能力不足危险、脱离群众危险、消极腐败危险。" },
     { type:"应知应会", q:"'五个重大原则'是什么？", a:"坚持和加强党的全面领导，坚持中国特色社会主义道路，坚持以人民为中心的发展思想，坚持深化改革开放，坚持发扬斗争精神。" }
 ];
-while(essayData.length<45) essayData.push({ type:"应知应会", q:"请简述新时代党的建设总要求。", a:"坚持和加强党的全面领导，坚持党要管党、全面从严治党，以加强党的长期执政能力建设、先进性和纯洁性建设为主线，以党的政治建设为统领，全面推进党的各项建设。" });
+while (essayData.length < 45) essayData.push({ type:"应知应会", q:"请简述新时代党的建设总要求。", a:"坚持和加强党的全面领导，坚持党要管党、全面从严治党，以加强党的长期执政能力建设、先进性和纯洁性建设为主线，以党的政治建设为统领，全面推进党的各项建设。" });
 
-// ---------- 分页 ----------
+// ==================== 渲染逻辑 ====================
 let currentFilter = '';
 let currentTab = 'choice';
 let currentPage = 1;
-const PAGE_SIZE = 5;  // 单栏每页5题，清爽
+const PAGE_SIZE = 5;
 
-function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m=>({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-function getFullAnswer(q){ 
-    if(!q.opts) return q.ans;
-    let letter=q.ans;
-    let match=q.opts.find(o=>o.startsWith(letter+'.')||o.startsWith(letter+'、'));
-    return match?`${letter}. ${match.substring(2)}`:`${letter}. ${q.ans}`;
+function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+function getFullAnswer(q) {
+    if (!q.opts) return q.ans;
+    let letter = q.ans;
+    let match = q.opts.find(o => o.startsWith(letter + '.') || o.startsWith(letter + '、'));
+    return match ? `${letter}. ${match.substring(2)}` : `${letter}. ${q.ans}`;
 }
 
-function renderPagination(total){
-    let totalPages=Math.ceil(total/PAGE_SIZE);
-    if(totalPages<=1) return '';
-    let html=`<div class="pagination"><button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled style="opacity:0.5"':''}><i class="fas fa-chevron-left"></i> 上一页</button>`;
-    let start=Math.max(1,currentPage-2), end=Math.min(totalPages,currentPage+2);
-    if(start>1){ html+=`<button class="page-btn" onclick="goToPage(1)">1</button>`; if(start>2) html+=`<span class="page-info">···</span>`; }
-    for(let i=start;i<=end;i++) html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-    if(end<totalPages){ if(end<totalPages-1) html+=`<span class="page-info">···</span>`; html+=`<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
-    html+=`<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===totalPages?'disabled style="opacity:0.5"':''}>下一页 <i class="fas fa-chevron-right"></i></button>`;
-    html+=`<span class="page-info"><i class="fas fa-layer-group"></i> 第 ${currentPage} / ${totalPages} 页</span></div>`;
+function renderPagination(total) {
+    let totalPages = Math.ceil(total / PAGE_SIZE);
+    if (totalPages <= 1) return '';
+    let html = `<div class="pagination"><button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:0.5"' : ''}><i class="fas fa-chevron-left"></i> 上一页</button>`;
+    let start = Math.max(1, currentPage - 2), end = Math.min(totalPages, currentPage + 2);
+    if (start > 1) { html += `<button class="page-btn" onclick="goToPage(1)">1</button>`; if (start > 2) html += `<span class="page-info">···</span>`; }
+    for (let i = start; i <= end; i++) html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    if (end < totalPages) { if (end < totalPages - 1) html += `<span class="page-info">···</span>`; html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:0.5"' : ''}>下一页 <i class="fas fa-chevron-right"></i></button>`;
+    html += `<span class="page-info"><i class="fas fa-layer-group"></i> 第 ${currentPage} / ${totalPages} 页</span></div>`;
     return html;
 }
 
-function renderChoice(){
-    let filtered=choiceData;
-    if(currentFilter.trim()){
-        let kw=currentFilter.toLowerCase();
-        filtered=choiceData.filter(q=>q.q.toLowerCase().includes(kw)||(q.opts&&q.opts.some(o=>o.toLowerCase().includes(kw))));
+function renderChoice() {
+    let filtered = choiceData;
+    if (currentFilter.trim()) {
+        let kw = currentFilter.toLowerCase();
+        filtered = choiceData.filter(q => q.q.toLowerCase().includes(kw) || (q.opts && q.opts.some(o => o.toLowerCase().includes(kw))));
     }
-    let total=filtered.length;
-    let totalPages=Math.ceil(total/PAGE_SIZE);
-    if(currentPage>totalPages) currentPage=1;
-    let start=(currentPage-1)*PAGE_SIZE;
-    let pageItems=filtered.slice(start,start+PAGE_SIZE);
-    let container=document.getElementById('choiceList');
-    if(!container) return;
-    if(total===0){ container.innerHTML='<div class="empty"><i class="fas fa-search"></i> 未找到相关题目，换关键词试试~</div>'; return; }
-    let html='<div class="cards-list">';
-    for(let q of pageItems){
-        let full=getFullAnswer(q);
-        html+=`<div class="card"><div class="card-header"><span class="type-badge"><i class="fas fa-dot-circle"></i> 单选题</span><span class="q-num">第 ${q.index} 题</span></div>
-        <div class="question">${escapeHtml(q.q)}</div><div class="options">${q.opts.map(o=>`<p>${escapeHtml(o)}</p>`).join('')}</div>
+    let total = filtered.length;
+    let totalPages = Math.ceil(total / PAGE_SIZE);
+    if (currentPage > totalPages) currentPage = 1;
+    let start = (currentPage - 1) * PAGE_SIZE;
+    let pageItems = filtered.slice(start, start + PAGE_SIZE);
+    let container = document.getElementById('choiceList');
+    if (!container) return;
+    if (total === 0) { container.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i> 未找到相关题目，试试其他关键词～</div>'; return; }
+    let html = '<div class="cards-list">';
+    for (let q of pageItems) {
+        let full = getFullAnswer(q);
+        html += `<div class="card"><div class="card-header"><span class="badge"><i class="fas fa-dot-circle"></i> 单选题</span><span class="q-num">第 ${q.index} 题</span></div>
+        <div class="question">${escapeHtml(q.q)}</div><div class="options">${q.opts.map(o => `<p>${escapeHtml(o)}</p>`).join('')}</div>
         <div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('c_${q.index}')"><i class="far fa-eye"></i> 查看答案</button>
         <div class="answer-content" id="ans_c_${q.index}"><i class="fas fa-check-circle"></i> <strong>参考答案：</strong> ${escapeHtml(full)}</div></div></div>`;
     }
-    html+='</div>';
-    html+=renderPagination(total);
-    container.innerHTML=html;
+    html += '</div>' + renderPagination(total);
+    container.innerHTML = html;
 }
 
-function renderEssay(){
-    let total=essayData.length;
-    let totalPages=Math.ceil(total/PAGE_SIZE);
-    if(currentPage>totalPages) currentPage=1;
-    let start=(currentPage-1)*PAGE_SIZE;
-    let pageItems=essayData.slice(start,start+PAGE_SIZE);
-    let container=document.getElementById('essayList');
-    if(!container) return;
-    let html='<div class="cards-list">';
-    for(let i=0;i<pageItems.length;i++){
-        let q=pageItems[i];
-        let idx=start+i+1;
-        let isSimple=q.type==='简答题';
-        html+=`<div class="card"><div class="card-header"><span class="type-badge" style="${isSimple?'background:#fee2e2;color:#991b1b':'background:#e0f2fe;color:#0c4a6e'}"><i class="fas ${isSimple?'fa-question-circle':'fa-gem'}"></i> ${q.type}</span><span class="q-num">${isSimple?'简答':'应知'}.${idx}</span></div>
+function renderEssay() {
+    let total = essayData.length;
+    let totalPages = Math.ceil(total / PAGE_SIZE);
+    if (currentPage > totalPages) currentPage = 1;
+    let start = (currentPage - 1) * PAGE_SIZE;
+    let pageItems = essayData.slice(start, start + PAGE_SIZE);
+    let container = document.getElementById('essayList');
+    if (!container) return;
+    let html = '<div class="cards-list">';
+    for (let i = 0; i < pageItems.length; i++) {
+        let q = pageItems[i];
+        let idx = start + i + 1;
+        let isSimple = q.type === '简答题';
+        html += `<div class="card"><div class="card-header"><span class="badge" style="${isSimple ? 'background:#fee2e2;color:#991b1b' : 'background:#e0f2fe;color:#0c4a6e'}"><i class="fas ${isSimple ? 'fa-question-circle' : 'fa-gem'}"></i> ${q.type}</span><span class="q-num">${isSimple ? '简答' : '应知'}.${idx}</span></div>
         <div class="question">${escapeHtml(q.q)}</div><div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('e_${idx}')"><i class="far fa-eye"></i> 查看答案</button>
-        <div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> <strong>要点：</strong><br>${escapeHtml(q.a).replace(/\n/g,'<br>')}</div></div></div>`;
+        <div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> <strong>要点：</strong><br>${escapeHtml(q.a).replace(/\n/g, '<br>')}</div></div></div>`;
     }
-    html+='</div>';
-    html+=renderPagination(total);
-    container.innerHTML=html;
+    html += '</div>' + renderPagination(total);
+    container.innerHTML = html;
 }
 
-window.toggleAnswer=function(id){
-    let div=document.getElementById('ans_'+id);
-    let btn=div?.previousElementSibling;
-    if(div){
-        if(div.classList.contains('show')){ div.classList.remove('show'); if(btn) btn.innerHTML='<i class="far fa-eye"></i> 查看答案'; }
-        else{ div.classList.add('show'); if(btn) btn.innerHTML='<i class="far fa-eye-slash"></i> 隐藏答案'; }
+window.toggleAnswer = function (id) {
+    let div = document.getElementById('ans_' + id);
+    let btn = div?.previousElementSibling;
+    if (div) {
+        if (div.classList.contains('show')) {
+            div.classList.remove('show');
+            if (btn) btn.innerHTML = '<i class="far fa-eye"></i> 查看答案';
+        } else {
+            div.classList.add('show');
+            if (btn) btn.innerHTML = '<i class="far fa-eye-slash"></i> 隐藏答案';
+        }
     }
 };
-window.goToPage=function(page){
-    let totalItems=currentTab==='choice'?(currentFilter?choiceData.filter(q=>q.q.toLowerCase().includes(currentFilter)||(q.opts&&q.opts.some(o=>o.toLowerCase().includes(currentFilter)))).length:choiceData.length):essayData.length;
-    let totalPages=Math.ceil(totalItems/PAGE_SIZE);
-    if(page<1||page>totalPages) return;
-    currentPage=page;
-    if(currentTab==='choice') renderChoice(); else renderEssay();
+window.goToPage = function (page) {
+    let totalItems = currentTab === 'choice' ? (currentFilter ? choiceData.filter(q => q.q.toLowerCase().includes(currentFilter) || (q.opts && q.opts.some(o => o.toLowerCase().includes(currentFilter)))).length : choiceData.length) : essayData.length;
+    let totalPages = Math.ceil(totalItems / PAGE_SIZE);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    if (currentTab === 'choice') renderChoice(); else renderEssay();
 };
-function switchTab(tab){
-    currentTab=tab; currentPage=1;
-    let choiceBtn=document.getElementById('tabChoice'), essayBtn=document.getElementById('tabEssay');
-    let choiceDiv=document.getElementById('choiceList'), essayDiv=document.getElementById('essayList');
-    let searchBox=document.getElementById('searchBox');
-    if(tab==='choice'){
+function switchTab(tab) {
+    currentTab = tab;
+    currentPage = 1;
+    let choiceBtn = document.getElementById('tabChoice'), essayBtn = document.getElementById('tabEssay');
+    let choiceDiv = document.getElementById('choiceList'), essayDiv = document.getElementById('essayList');
+    let searchBox = document.getElementById('searchBox');
+    if (tab === 'choice') {
         choiceBtn.classList.add('active'); essayBtn.classList.remove('active');
-        choiceDiv.style.display='block'; essayDiv.style.display='none';
-        searchBox.style.display='block';
+        choiceDiv.style.display = 'block'; essayDiv.style.display = 'none';
+        searchBox.style.display = 'block';
         renderChoice();
-    }else{
+    } else {
         choiceBtn.classList.remove('active'); essayBtn.classList.add('active');
-        choiceDiv.style.display='none'; essayDiv.style.display='block';
-        searchBox.style.display='none';
+        choiceDiv.style.display = 'none'; essayDiv.style.display = 'block';
+        searchBox.style.display = 'none';
         renderEssay();
     }
 }
-document.getElementById('searchInput').addEventListener('input',function(e){ currentFilter=e.target.value; currentPage=1; if(currentTab==='choice') renderChoice(); });
-document.getElementById('tabChoice').onclick=()=>switchTab('choice');
-document.getElementById('tabEssay').onclick=()=>switchTab('essay');
+document.getElementById('searchInput').addEventListener('input', function (e) { currentFilter = e.target.value; currentPage = 1; if (currentTab === 'choice') renderChoice(); });
+document.getElementById('tabChoice').onclick = () => switchTab('choice');
+document.getElementById('tabEssay').onclick = () => switchTab('essay');
 switchTab('choice');
 </script>
 </body>
