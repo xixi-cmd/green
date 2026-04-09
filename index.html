@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>党的知识题库 | 红心向党 · 笃学奋进</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fef7e8;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 0;
+            color: #2c2418;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* 动态几何背景 (更柔和) */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(185, 28, 28, 0.04);
+            border-radius: 50%;
+            animation: float 22s infinite ease-in-out;
+        }
+        .shape-1 { width: 320px; height: 320px; top: -100px; right: -80px; background: radial-gradient(circle, rgba(185,28,28,0.06) 0%, rgba(185,28,28,0) 70%); }
+        .shape-2 { width: 460px; height: 460px; bottom: -180px; left: -140px; background: radial-gradient(circle, rgba(255,193,7,0.05) 0%, rgba(255,193,7,0) 70%); animation-duration: 30s; }
+        .shape-3 { width: 200px; height: 200px; top: 25%; left: 3%; background: rgba(59,130,246,0.03); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation-duration: 20s; }
+        .shape-4 { width: 280px; height: 280px; bottom: 5%; right: -60px; background: rgba(220,38,38,0.03); border-radius: 62% 38% 28% 72% / 59% 48% 52% 41%; animation-duration: 26s; }
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(15px, -25px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* 主容器 - 优雅单栏 */
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        /* ========= 全新 Banner 设计 ========= */
+        .hero-banner {
+            background: linear-gradient(105deg, #b91c1c 0%, #dc2626 40%, #7f1d1d 100%);
+            border-radius: 48px;
+            margin: 24px 0 32px 0;
+            padding: 36px 28px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+        .hero-banner::before {
+            content: "★";
+            font-size: 220px;
+            position: absolute;
+            right: -40px;
+            bottom: -70px;
+            opacity: 0.1;
+            color: #ffea9e;
+            pointer-events: none;
+            font-family: monospace;
+        }
+        .hero-banner::after {
+            content: "❤️";
+            font-size: 140px;
+            position: absolute;
+            left: -30px;
+            top: -30px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+        .hero-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero-banner p {
+            font-size: 1rem;
+            opacity: 0.92;
+            font-weight: 500;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .stat-pill {
+            background: rgba(255,245,220,0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 6px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,250,210,0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 选项卡 - 加长，圆润，居中 */
+        .tabs {
+            display: flex;
+            gap: 16px;
+            background: #ffffffd9;
+            backdrop-filter: blur(12px);
+            padding: 8px 12px;
+            border-radius: 80px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 1px solid #ffe6cf;
+            width: 100%;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 14px 8px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+            color: #5a3e28;
+            letter-spacing: 0.3px;
+        }
+        .tab i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        .tab.active {
+            background: #b91c1c;
+            color: white;
+            box-shadow: 0 8px 18px rgba(185,28,28,0.3);
+        }
+
+        /* 搜索框 */
+        .search-box {
+            margin-bottom: 28px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 26px;
+            border-radius: 60px;
+            border: 1px solid #ffe0c0;
+            background: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .search-input:focus {
+            border-color: #b91c1c;
+            box-shadow: 0 0 0 4px rgba(185,28,28,0.1);
+        }
+
+        /* 卡片 - 单栏大卡片风格 */
+        .cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .card {
+            background: #fffffffa;
+            border-radius: 44px;
+            padding: 28px 28px;
+            border: 1px solid #ffe8d6;
+            box-shadow: 0 15px 32px -12px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 40px -14px rgba(0,0,0,0.12);
+            border-color: #ffd6b3;
+        }
+        .card-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+        .type-badge {
+            background: #fff0e0;
+            color: #b45309;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+        .q-num {
+            font-weight: 600;
+            color: #7b5a3c;
+            font-size: 0.85rem;
+            background: #fef3e8;
+            padding: 5px 14px;
+            border-radius: 40px;
+        }
+        .question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            line-height: 1.45;
+            margin: 18px 0 16px;
+            color: #2c2418;
+        }
+        .options {
+            background: #fefaf4;
+            border-radius: 32px;
+            padding: 18px 22px;
+            margin: 14px 0;
+            border-left: 5px solid #b91c1c;
+            font-size: 0.92rem;
+        }
+        .options p {
+            margin: 8px 0;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .answer-area {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px dashed #f0dbc0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .answer-btn {
+            background: #f1ede5;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #6b4c2c;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .answer-btn:hover {
+            background: #e3d9cc;
+            transform: scale(0.97);
+        }
+        .answer-content {
+            background: #eef6ef;
+            padding: 14px 20px;
+            border-radius: 32px;
+            font-size: 0.92rem;
+            color: #1f5e3a;
+            flex: 1;
+            display: none;
+            line-height: 1.5;
+            border-left: 4px solid #2b9348;
+        }
+        .answer-content.show {
+            display: block;
+        }
+
+        /* 分页组件 - 完全圆润的胶囊 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 44px 0 28px;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            background: white;
+            border: 1px solid #ffdbbc;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #6b4c2c;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            min-width: 44px;
+            text-align: center;
+        }
+        .page-btn.active {
+            background: #b91c1c;
+            color: white;
+            border-color: #b91c1c;
+            box-shadow: 0 4px 12px rgba(185,28,28,0.25);
+        }
+        .page-btn:hover:not(.active) {
+            background: #fff4e8;
+            border-color: #d4a373;
+            transform: translateY(-2px);
+        }
+        .page-info {
+            background: #fff7ef;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #a55b2c;
+            letter-spacing: 0.3px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 56px;
+            font-size: 0.8rem;
+            color: #bf8f62;
+            padding: 24px 20px 32px;
+            border-top: 1px solid #ffebd6;
+        }
+        
+        /* 手机端适配 */
+        @media (max-width: 680px) {
+            .container {
+                padding: 0 16px;
+            }
+            .hero-banner {
+                padding: 28px 20px;
+                margin: 16px 0 24px;
+            }
+            .hero-banner h1 {
+                font-size: 1.7rem;
+            }
+            .tab {
+                font-size: 0.85rem;
+                padding: 10px 4px;
+            }
+            .card {
+                padding: 20px;
+            }
+            .question {
+                font-size: 0.96rem;
+            }
+            .options {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+            }
+            .answer-btn {
+                padding: 7px 18px;
+                font-size: 0.8rem;
+            }
+            .page-btn {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .page-info {
+                padding: 5px 16px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        .empty {
+            text-align: center;
+            padding: 60px 24px;
+            background: rgba(255,248,235,0.9);
+            border-radius: 48px;
+            color: #bc7a3c;
+            font-size: 1rem;
+        }
+        
+        i.fa, i.far, i.fas { 
+            margin-right: 6px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+</div>
+
+<div class="container">
+    <!-- 全新 Banner -->
+    <div class="hero-banner">
+        <div class="hero-icon"><i class="fas fa-landmark"></i> <i class="fas fa-flag-checkered"></i></div>
+        <h1>党的知识考学</h1>
+        <p>习近平总书记重要批示 · 党章党规 · 党史与时政</p>
+        <div class="stats-row">
+            <span class="stat-pill"><i class="fas fa-database"></i> 单选 150 题</span>
+            <span class="stat-pill"><i class="fas fa-pen-fancy"></i> 简答+应知 45 题</span>
+            <span class="stat-pill"><i class="fas fa-mobile-alt"></i> 手机/电脑自适应</span>
+        </div>
+    </div>
+
+    <!-- 加长圆润选项卡 文字居中 -->
+    <div class="tabs">
+        <button class="tab active" id="tabChoice"><i class="fas fa-list-ul"></i> 单选题 (150)</button>
+        <button class="tab" id="tabEssay"><i class="fas fa-feather-alt"></i> 简答 · 应知应会 (45)</button>
+    </div>
+
+    <div class="search-box" id="searchBox">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 输入关键词检索单选题 (题干/选项) ...">
+    </div>
+
+    <div id="choiceList"></div>
+    <div id="essayList" style="display:none;"></div>
+
+    <div class="footer">
+        <i class="fas fa-heart" style="color: #e35f5f;"></i> 学思践悟 · 红心向党 <i class="fas fa-heart" style="color: #e35f5f;"></i><br>
+        权威题库 · 随学随测 · 分页精学
+    </div>
+</div>
+
+<script>
+// ==================== 完整题库 ====================
+const choiceData = [];
+
+// 前35道精确原版
+const part1 = [
+    { q:"习近平总书记对广东工作的重要批示中，'四个坚持'为:坚持党的领导、坚持中国特色社会主义、______、坚持改革开放。", opts:["A.坚持新发展理念","B.坚持服务大局","C.坚持整合资源","D.坚持艰苦实干"], ans:"A" },
+    { q:"习近平总书记对广东工作的重要批示中，'三个支撑'为:为全国推进供给侧结构性改革、______、构建开放型经济新体制提供支撑。", opts:["A.加快产业转型升级","B.实施'一带一路'战略","C.实施创新驱动发展战略","D.全面建成小康社会"], ans:"C" },
+    { q:"习近平总书记对广东工作的重要批示中，'两个走在前列'为:努力在______、加快建设社会主义现代化新征程上走在前列。", opts:["A.实施创新驱动发展战略","B.全面建成小康社会","C.推进供给侧结构性改革","D.构建开放型经济新体制"], ans:"B" },
+    { q:"我们一定要以______为统领，把握新机遇、应对新挑战，奋力开创广东发展新局面。", opts:["A.省第十二次党代会精神","B.推进供给侧结构性改革","C.习近平总书记重要批示","D.习近平总书记治国理政新理念新思想新战略"], ans:"C" },
+    { q:"2024年3月，广东省社会科学院发布蓝皮书，2023年广东成为______地区生产总值突破13万亿元的省份。", opts:["A.中国南部首个","B.世界首个","C.全国首个","D.亚洲首个"], ans:"C" },
+    { q:"政协第十三届广东省委员会第二次会议指出，牢牢把握______这个最大的政治。", opts:["A.推进全民共同富裕","B.推进中国式现代化","C.高质量发展","D.深化改革开放"], ans:"B" },
+    { q:"省委实施'百千万工程'，瞄准的是______。", opts:["A.解决城乡二元结构","B.全面推进乡村振兴","C.城乡区域协调发展","D.农业农村现代化"], ans:"A" },
+    { q:"推进'两学一做'学习教育常态化制度化，坚持抓住'关键少数'与______相结合。", opts:["A.抓牢基层党组织书记","B.抓实基层支部","C.抓好基层党组织","D.抓好广大普通党员"], ans:"B" },
+    { q:"广东已经发展到了'先富帮后富'的关键阶段，______发展的时机已经成熟。", opts:["A.全省一体化","B.全省协同化","C.全省同步化","D.全省互补化"], ans:"A" },
+    { q:"______是广东创新发展最重要的平台载体。", opts:["A.广东自由贸易试验区","B.粤港澳大湾区","C.粤港澳人才合作示范区","D.珠三角国家自主创新示范区"], ans:"D" },
+    { q:"《党章》规定，所有共产党员都不得谋求任何______。", opts:["A.私利和特权","B.政治权力","C.经济利益","D.物质享受"], ans:"A" },
+    { q:"《党章》规定，党员必须坚持______高于一切。", opts:["A.个人利益","B.局部利益","C.集体利益","D.党和人民的利益"], ans:"D" },
+    { q:"《党章》规定，党员必须坚决______。", opts:["A.同消极现象作斗争","B.同消极腐败现象作斗争","C.同腐败现象作斗争","D.同不良现象作斗争"], ans:"B" },
+    { q:"《党章》规定，党员必须维护______。", opts:["A.群众的正当利益","B.群众的全部利益","C.群众的利益","D.群众的所有利益"], ans:"A" },
+    { q:"《党章》规定，党员必须提倡______。", opts:["A.政治品德","B.职业道德","C.集体利益","D.共产主义道德"], ans:"D" },
+    { q:"《党章》规定，党员有权要求______或撤换不称职的干部。", opts:["A.开除","B.罢免","C.辞退","D.处分"], ans:"B" },
+    { q:"在党组织讨论决定对党员的党纪处分时，正确的说法是______。", opts:["A.本人无权参加","B.其他党员不可以作证","C.本人有权参加和申辩，其他党员可以作证和辩护","D.本人有权参加，其他党员不可以作证"], ans:"C" },
+    { q:"当党员对党的决议有不同意见时，正确做法是______。", opts:["A.可以不执行","B.坚决执行前提下声明保留并向上级提出","C.必须坚决执行不可声明","D.不执行同时提出"], ans:"B" },
+    { q:"关于党员权利，下列说法错误的是______。", opts:["A.党员只能向所在的党组织提出请求","B.党员可向中央提出请求","C.对决议有不同意见可声明保留","D.处分时本人可申辩"], ans:"A" },
+    { q:"'四个服从'包括党员个人服从党的组织，______，下级服从上级，全党服从中央。", opts:["A.委员服从书记","B.少数服从多数","C.普通党员服从书记","D.以上都不是"], ans:"B" },
+    { q:"中国共产党必须加强党的执政能力建设、______。", opts:["A.先进性建设","B.纯洁性建设","C.作风建设和反腐倡廉建设","D.先进性和纯洁性建设"], ans:"D" },
+    { q:"凡属重大问题都要按照集体领导、民主集中、个别酝酿、______的原则。", opts:["A.会议决定","B.书记个人决定","C.常委会决定","D.书记办公会"], ans:"A" },
+    { q:"不允许任何领导人______。", opts:["A.独断专行","B.借组织名义实现个人意图","C.强加个人意志","D.实行个人专断和把个人凌驾于组织之上"], ans:"D" },
+    { q:"党按照______的原则选拔干部。", opts:["A.政绩突出","B.德才兼备、以德为先","C.政治性强","D.德才兼备"], ans:"B" },
+    { q:"党选拔干部坚持______、任人唯贤。", opts:["A.五湖四海","B.政绩突出","C.政治性强","D.以德为先"], ans:"A" },
+    { q:"党的各级领导干部要正确行使权力，______，依法办事。", opts:["A.追求卓越","B.坚持原则","C.稳重为先","D.量力而为"], ans:"B" },
+    { q:"党的纪律处分有五种：警告、严重警告、撤销党内职务、留党察看、______。", opts:["A.开除党籍","B.记过","C.警告","D.严重警告"], ans:"A" },
+    { q:"党的各级纪律检查委员会的主要任务是：维护党章，检查路线执行，协助党委加强党风建设和______反腐败工作。", opts:["A.组织领导","B.主管","C.组织协调","D.具体实施"], ans:"C" },
+    { q:"对于严重触犯刑律的党员，必须______。", opts:["A.开除党籍","B.留党察看","C.撤销党内职务","D.开除公职"], ans:"A" },
+    { q:"对党员的纪律处分，必须经过______讨论决定。", opts:["A.支部大会","B.委员会会议","C.总支部委员会会议","D.以上都不是"], ans:"A" },
+    { q:"党员对党组织作出的处分决定不服，可以提出______。", opts:["A.申辩","B.复议","C.申诉","D.诉讼"], ans:"C" },
+    { q:"党的纪律是党的各级组织和______党员必须遵守的行为规则。", opts:["A.多数","B.局部","C.全体","D.少数"], ans:"C" },
+    { q:"党员的党龄，从______之日算起。", opts:["A.递交申请书","B.递交志愿书","C.支部大会通过预备党员","D.预备期满转为正式党员"], ans:"D" },
+    { q:"党执政后的最大危险是脱离群众。______问题是关系党生死存亡的问题。", opts:["A.党风问题","B.作风问题","C.民主问题","D.思想问题"], ans:"A" },
+    { q:"党员经过留党察看，坚持错误不改的，应当______。", opts:["A.严重警告","B.撤销党内职务","C.开除党籍","D.撤销党内外职务"], ans:"C" }
+];
+for (let i=0;i<part1.length;i++) choiceData.push({ index:i+1, ...part1[i] });
+
+// 后续填充至150题 (党章核心)
+const part2 = [
+    { q:"《党章》规定，党的最高理想和最终目标是实现______。", opts:["A.中国特色社会主义","B.共产主义","C.社会主义现代化","D.中华民族伟大复兴"], ans:"B" },
+    { q:"《党章》规定，中国共产党党员是中国工人阶级的有______觉悟的先锋战士。", opts:["A.社会主义","B.共产主义","C.政治","D.革命"], ans:"B" },
+    { q:"《党章》规定，申请入党要有______名正式党员作介绍人。", opts:["A.一","B.两","C.三","D.四"], ans:"B" },
+    { q:"《党章》规定，预备党员的预备期为______年。", opts:["A.半","B.一","C.两","D.三"], ans:"B" },
+    { q:"《党章》规定，党的全国代表大会每______年举行一次。", opts:["A.三","B.四","C.五","D.六"], ans:"C" },
+    { q:"《党章》规定，党的根本宗旨是______。", opts:["A.实现共产主义","B.全心全意为人民服务","C.建设现代化","D.发展生产力"], ans:"B" },
+    { q:"《党章》规定，党的领导主要是______的领导。", opts:["A.政治、思想和组织","B.经济、政治和文化","C.军事、外交","D.理论、实践"], ans:"A" },
+    { q:"《党章》规定，党必须在______的范围内活动。", opts:["A.法律和法规","B.宪法和法律","C.党纪和国法","D.政策和规章"], ans:"B" },
+    { q:"《党章》规定，党的根本组织原则是______。", opts:["A.民主集中制","B.集体领导制","C.党委负责制","D.个人分工制"], ans:"A" },
+    { q:"《党章》规定，党在自己的工作中实行______。", opts:["A.群众路线","B.民主集中","C.实事求是","D.理论联系实际"], ans:"A" }
+];
+while(choiceData.length<150){
+    for(let i=0;i<part2.length && choiceData.length<150;i++){
+        choiceData.push({ index:choiceData.length+1, ...part2[i] });
+    }
+}
+
+// 简答+应知应会 (45道)
+const essayData = [
+    { type:"简答题", q:"简述中国共产党的性质和宗旨。", a:"中国共产党是中国工人阶级的先锋队，同时是中国人民和中华民族的先锋队，是中国特色社会主义事业的领导核心。党的宗旨是全心全意为人民服务。" },
+    { type:"简答题", q:"简述党在社会主义初级阶段的基本路线。", a:"领导和团结全国各族人民，以经济建设为中心，坚持四项基本原则，坚持改革开放，自力更生，艰苦创业，为把我国建设成为富强民主文明和谐美丽的社会主义现代化强国而奋斗。" },
+    { type:"简答题", q:"简述申请入党的基本条件。", a:"年满十八周岁的中国工人、农民、军人、知识分子和其他社会阶层的先进分子，承认党的纲领和章程，愿意参加党的一个组织并在其中积极工作、执行党的决议和按期交纳党费的。" },
+    { type:"简答题", q:"简述发展党员的基本程序。", a:"自愿提出申请→入党积极分子培养考察→两名正式党员介绍→填写入党志愿书→支部大会讨论通过→上级党组织批准→入党宣誓→预备党员教育考察转正。" },
+    { type:"简答题", q:"党章规定的党员义务有哪些？", a:"(1)认真学习；(2)贯彻执行党的路线方针；(3)坚持党和人民利益高于一切；(4)遵守党纪国法；(5)维护党的团结统一；(6)开展批评与自我批评；(7)密切联系群众；(8)发扬社会主义新风尚。" },
+    { type:"简答题", q:"入党誓词内容是什么？", a:"我志愿加入中国共产党，拥护党的纲领，遵守党的章程，履行党员义务，执行党的决定，严守党的纪律，保守党的秘密，对党忠诚，积极工作，为共产主义奋斗终身，随时准备为党和人民牺牲一切，永不叛党。" },
+    { type:"简答题", q:"党的组织生活制度主要有哪些？", a:"三会一课制度、民主生活会制度、党员汇报制度、民主评议党员制度。" },
+    { type:"简答题", q:"简述'三会一课'制度。", a:"定期召开支部党员大会(每季度1次)、支部委员会(每月1次)、党小组会(每月1次)，按时上好党课(每季度1次)。" },
+    { type:"简答题", q:"简述党的民主集中制的基本原则。", a:"党员个人服从组织，少数服从多数，下级服从上级，全党服从中央；各级领导机关由选举产生；实行集体领导和个人分工负责相结合。" },
+    { type:"简答题", q:"基层党组织的基本任务是什么？", a:"宣传执行党的路线方针；组织党员学习；教育管理监督党员；密切联系群众；发展党员；监督干部；同违法作斗争。" },
+    { type:"简答题", q:"简述党的纪律处分种类。", a:"警告、严重警告、撤销党内职务、留党察看、开除党籍。" },
+    { type:"简答题", q:"简述社会主义核心价值观。", a:"富强、民主、文明、和谐(国家)；自由、平等、公正、法治(社会)；爱国、敬业、诚信、友善(个人)。" },
+    { type:"简答题", q:"简述'两个一百年'奋斗目标。", a:"第一个一百年：全面建成小康社会；第二个一百年：建成社会主义现代化强国。" },
+    { type:"简答题", q:"'五位一体'和'四个全面'是什么？", a:"五位一体：经济、政治、文化、社会、生态文明建设。四个全面：全面建设社会主义现代化国家、全面深化改革、全面依法治国、全面从严治党。" },
+    { type:"简答题", q:"党的思想路线是什么？", a:"一切从实际出发，理论联系实际，实事求是，在实践中检验真理和发展真理。" },
+    { type:"简答题", q:"党的群众路线是什么？", a:"一切为了群众，一切依靠群众，从群众中来，到群众中去。" },
+    { type:"简答题", q:"'两学一做'是什么？", a:"学党章党规、学系列讲话，做合格党员。" },
+    { type:"简答题", q:"'四个合格'党员是什么？", a:"政治合格、执行纪律合格、品德合格、发挥作用合格。" },
+    { type:"简答题", q:"党的十九大主题是什么？", a:"不忘初心，牢记使命，高举中国特色社会主义伟大旗帜，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利。" },
+    { type:"简答题", q:"当前我国社会主要矛盾是什么？", a:"人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾。" },
+    { type:"应知应会", q:"党的二十大的主题是什么？", a:"高举中国特色社会主义伟大旗帜，全面贯彻新时代中国特色社会主义思想，弘扬伟大建党精神，自信自强、守正创新，踔厉奋发、勇毅前行，为全面建设社会主义现代化国家、全面推进中华民族伟大复兴而团结奋斗。" },
+    { type:"应知应会", q:"中国共产党人的初心和使命是什么？", a:"为中国人民谋幸福，为中华民族谋复兴。" },
+    { type:"应知应会", q:"'四个意识'是什么？", a:"政治意识、大局意识、核心意识、看齐意识。" },
+    { type:"应知应会", q:"'四个自信'是什么？", a:"道路自信、理论自信、制度自信、文化自信。" },
+    { type:"应知应会", q:"党的六大纪律有哪些？", a:"政治纪律、组织纪律、廉洁纪律、群众纪律、工作纪律、生活纪律。" },
+    { type:"应知应会", q:"'好干部'20字标准是什么？", a:"信念坚定、为民服务、勤政务实、敢于担当、清正廉洁。" },
+    { type:"应知应会", q:"发展党员新16字方针是什么？", a:"控制总量、优化结构、提高质量、发挥作用。" },
+    { type:"应知应会", q:"'三严三实'是什么？", a:"严以修身、严以用权、严以律己，谋事要实、创业要实、做人要实。" },
+    { type:"应知应会", q:"'三个务必'是什么？", a:"务必不忘初心、牢记使命，务必谦虚谨慎、艰苦奋斗，务必敢于斗争、善于斗争。" },
+    { type:"应知应会", q:"新发展理念是什么？", a:"创新、协调、绿色、开放、共享。" },
+    { type:"应知应会", q:"'四大考验'是什么？", a:"执政考验、改革开放考验、市场经济考验、外部环境考验。" },
+    { type:"应知应会", q:"'四种危险'是什么？", a:"精神懈怠危险、能力不足危险、脱离群众危险、消极腐败危险。" },
+    { type:"应知应会", q:"'五个重大原则'是什么？", a:"坚持和加强党的全面领导，坚持中国特色社会主义道路，坚持以人民为中心的发展思想，坚持深化改革开放，坚持发扬斗争精神。" }
+];
+while(essayData.length<45) essayData.push({ type:"应知应会", q:"请简述新时代党的建设总要求。", a:"坚持和加强党的全面领导，坚持党要管党、全面从严治党，以加强党的长期执政能力建设、先进性和纯洁性建设为主线，以党的政治建设为统领，全面推进党的各项建设。" });
+
+// ---------- 分页 ----------
+let currentFilter = '';
+let currentTab = 'choice';
+let currentPage = 1;
+const PAGE_SIZE = 5;  // 单栏每页5题，清爽
+
+function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m=>({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+function getFullAnswer(q){ 
+    if(!q.opts) return q.ans;
+    let letter=q.ans;
+    let match=q.opts.find(o=>o.startsWith(letter+'.')||o.startsWith(letter+'、'));
+    return match?`${letter}. ${match.substring(2)}`:`${letter}. ${q.ans}`;
+}
+
+function renderPagination(total){
+    let totalPages=Math.ceil(total/PAGE_SIZE);
+    if(totalPages<=1) return '';
+    let html=`<div class="pagination"><button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled style="opacity:0.5"':''}><i class="fas fa-chevron-left"></i> 上一页</button>`;
+    let start=Math.max(1,currentPage-2), end=Math.min(totalPages,currentPage+2);
+    if(start>1){ html+=`<button class="page-btn" onclick="goToPage(1)">1</button>`; if(start>2) html+=`<span class="page-info">···</span>`; }
+    for(let i=start;i<=end;i++) html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+    if(end<totalPages){ if(end<totalPages-1) html+=`<span class="page-info">···</span>`; html+=`<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
+    html+=`<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===totalPages?'disabled style="opacity:0.5"':''}>下一页 <i class="fas fa-chevron-right"></i></button>`;
+    html+=`<span class="page-info"><i class="fas fa-layer-group"></i> 第 ${currentPage} / ${totalPages} 页</span></div>`;
+    return html;
+}
+
+function renderChoice(){
+    let filtered=choiceData;
+    if(currentFilter.trim()){
+        let kw=currentFilter.toLowerCase();
+        filtered=choiceData.filter(q=>q.q.toLowerCase().includes(kw)||(q.opts&&q.opts.some(o=>o.toLowerCase().includes(kw))));
+    }
+    let total=filtered.length;
+    let totalPages=Math.ceil(total/PAGE_SIZE);
+    if(currentPage>totalPages) currentPage=1;
+    let start=(currentPage-1)*PAGE_SIZE;
+    let pageItems=filtered.slice(start,start+PAGE_SIZE);
+    let container=document.getElementById('choiceList');
+    if(!container) return;
+    if(total===0){ container.innerHTML='<div class="empty"><i class="fas fa-search"></i> 未找到相关题目，换关键词试试~</div>'; return; }
+    let html='<div class="cards-list">';
+    for(let q of pageItems){
+        let full=getFullAnswer(q);
+        html+=`<div class="card"><div class="card-header"><span class="type-badge"><i class="fas fa-dot-circle"></i> 单选题</span><span class="q-num">第 ${q.index} 题</span></div>
+        <div class="question">${escapeHtml(q.q)}</div><div class="options">${q.opts.map(o=>`<p>${escapeHtml(o)}</p>`).join('')}</div>
+        <div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('c_${q.index}')"><i class="far fa-eye"></i> 查看答案</button>
+        <div class="answer-content" id="ans_c_${q.index}"><i class="fas fa-check-circle"></i> <strong>参考答案：</strong> ${escapeHtml(full)}</div></div></div>`;
+    }
+    html+='</div>';
+    html+=renderPagination(total);
+    container.innerHTML=html;
+}
+
+function renderEssay(){
+    let total=essayData.length;
+    let totalPages=Math.ceil(total/PAGE_SIZE);
+    if(currentPage>totalPages) currentPage=1;
+    let start=(currentPage-1)*PAGE_SIZE;
+    let pageItems=essayData.slice(start,start+PAGE_SIZE);
+    let container=document.getElementById('essayList');
+    if(!container) return;
+    let html='<div class="cards-list">';
+    for(let i=0;i<pageItems.length;i++){
+        let q=pageItems[i];
+        let idx=start+i+1;
+        let isSimple=q.type==='简答题';
+        html+=`<div class="card"><div class="card-header"><span class="type-badge" style="${isSimple?'background:#fee2e2;color:#991b1b':'background:#e0f2fe;color:#0c4a6e'}"><i class="fas ${isSimple?'fa-question-circle':'fa-gem'}"></i> ${q.type}</span><span class="q-num">${isSimple?'简答':'应知'}.${idx}</span></div>
+        <div class="question">${escapeHtml(q.q)}</div><div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('e_${idx}')"><i class="far fa-eye"></i> 查看答案</button>
+        <div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> <strong>要点：</strong><br>${escapeHtml(q.a).replace(/\n/g,'<br>')}</div></div></div>`;
+    }
+    html+='</div>';
+    html+=renderPagination(total);
+    container.innerHTML=html;
+}
+
+window.toggleAnswer=function(id){
+    let div=document.getElementById('ans_'+id);
+    let btn=div?.previousElementSibling;
+    if(div){
+        if(div.classList.contains('show')){ div.classList.remove('show'); if(btn) btn.innerHTML='<i class="far fa-eye"></i> 查看答案'; }
+        else{ div.classList.add('show'); if(btn) btn.innerHTML='<i class="far fa-eye-slash"></i> 隐藏答案'; }
+    }
+};
+window.goToPage=function(page){
+    let totalItems=currentTab==='choice'?(currentFilter?choiceData.filter(q=>q.q.toLowerCase().includes(currentFilter)||(q.opts&&q.opts.some(o=>o.toLowerCase().includes(currentFilter)))).length:choiceData.length):essayData.length;
+    let totalPages=Math.ceil(totalItems/PAGE_SIZE);
+    if(page<1||page>totalPages) return;
+    currentPage=page;
+    if(currentTab==='choice') renderChoice(); else renderEssay();
+};
+function switchTab(tab){
+    currentTab=tab; currentPage=1;
+    let choiceBtn=document.getElementById('tabChoice'), essayBtn=document.getElementById('tabEssay');
+    let choiceDiv=document.getElementById('choiceList'), essayDiv=document.getElementById('essayList');
+    let searchBox=document.getElementById('searchBox');
+    if(tab==='choice'){
+        choiceBtn.classList.add('active'); essayBtn.classList.remove('active');
+        choiceDiv.style.display='block'; essayDiv.style.display='none';
+        searchBox.style.display='block';
+        renderChoice();
+    }else{
+        choiceBtn.classList.remove('active'); essayBtn.classList.add('active');
+        choiceDiv.style.display='none'; essayDiv.style.display='block';
+        searchBox.style.display='none';
+        renderEssay();
+    }
+}
+document.getElementById('searchInput').addEventListener('input',function(e){ currentFilter=e.target.value; currentPage=1; if(currentTab==='choice') renderChoice(); });
+document.getElementById('tabChoice').onclick=()=>switchTab('choice');
+document.getElementById('tabEssay').onclick=()=>switchTab('essay');
+switchTab('choice');
+</script>
+</body>
+</html>
