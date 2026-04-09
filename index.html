@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css" />
-    <link rel="icon" type="image/png" href="./star.png">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
     <title>党的知识题库 | 红心向党 · 笃学奋进</title>
     <style>
         * {
@@ -15,7 +15,7 @@
             box-sizing: border-box;
         }
 
-        /* 动态几何背景层 (圆形、圆角方形、三角形) */
+        /* 动态几何背景层 */
         .geometry-bg {
             position: fixed;
             top: 0;
@@ -31,85 +31,14 @@
             opacity: 0.35;
             animation: floatGeo 18s infinite ease-in-out;
         }
-        /* 圆形 */
-        .circle-1 {
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, rgba(185,28,28,0.12) 0%, rgba(185,28,28,0.02) 80%);
-            border-radius: 50%;
-            top: -80px;
-            right: -60px;
-            animation-duration: 22s;
-        }
-        .circle-2 {
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, rgba(245,158,11,0.02) 80%);
-            border-radius: 50%;
-            bottom: 15%;
-            left: -70px;
-            animation-duration: 26s;
-            animation-delay: 1s;
-        }
-        /* 圆角方形 */
-        .rounded-square {
-            width: 180px;
-            height: 180px;
-            background: rgba(59,130,246,0.06);
-            border-radius: 40px;
-            top: 25%;
-            right: 5%;
-            transform: rotate(15deg);
-            animation-duration: 20s;
-            backdrop-filter: blur(2px);
-        }
-        .rounded-square-2 {
-            width: 240px;
-            height: 240px;
-            background: rgba(220,38,38,0.04);
-            border-radius: 60px;
-            bottom: 8%;
-            right: -60px;
-            transform: rotate(25deg);
-            animation-duration: 24s;
-            animation-delay: 0.5s;
-        }
-        /* 三角形 (通过border实现) */
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-bottom: 180px solid rgba(185,28,28,0.07);
-            position: absolute;
-            top: 55%;
-            left: -40px;
-            transform: rotate(35deg);
-            animation-duration: 28s;
-        }
-        .triangle-2 {
-            border-left: 70px solid transparent;
-            border-right: 70px solid transparent;
-            border-bottom: 130px solid rgba(234,179,8,0.06);
-            top: 10%;
-            left: auto;
-            right: -30px;
-            transform: rotate(-15deg);
-            animation-duration: 30s;
-        }
-        /* 小圆点装饰 */
-        .dot-group {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-        .dot {
-            position: absolute;
-            background: rgba(185,28,28,0.12);
-            border-radius: 50%;
-            width: 6px;
-            height: 6px;
-        }
+        .circle-1 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(185,28,28,0.12) 0%, rgba(185,28,28,0.02) 80%); border-radius: 50%; top: -80px; right: -60px; animation-duration: 22s; }
+        .circle-2 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, rgba(245,158,11,0.02) 80%); border-radius: 50%; bottom: 15%; left: -70px; animation-duration: 26s; animation-delay: 1s; }
+        .rounded-square { width: 180px; height: 180px; background: rgba(59,130,246,0.06); border-radius: 40px; top: 25%; right: 5%; transform: rotate(15deg); animation-duration: 20s; backdrop-filter: blur(2px); }
+        .rounded-square-2 { width: 240px; height: 240px; background: rgba(220,38,38,0.04); border-radius: 60px; bottom: 8%; right: -60px; transform: rotate(25deg); animation-duration: 24s; animation-delay: 0.5s; }
+        .triangle { width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-bottom: 180px solid rgba(185,28,28,0.07); position: absolute; top: 55%; left: -40px; transform: rotate(35deg); animation-duration: 28s; }
+        .triangle-2 { border-left: 70px solid transparent; border-right: 70px solid transparent; border-bottom: 130px solid rgba(234,179,8,0.06); top: 10%; left: auto; right: -30px; transform: rotate(-15deg); animation-duration: 30s; }
+        .dot-group { position: absolute; width: 100%; height: 100%; }
+        .dot { position: absolute; background: rgba(185,28,28,0.12); border-radius: 50%; width: 6px; height: 6px; }
         .dot:nth-child(1) { top: 15%; left: 8%; width: 8px; height: 8px; opacity: 0.5; animation: pulse 3s infinite; }
         .dot:nth-child(2) { top: 70%; left: 85%; width: 12px; height: 12px; opacity: 0.4; animation: pulse 4s infinite 1s; }
         .dot:nth-child(3) { top: 40%; left: 92%; width: 5px; height: 5px; opacity: 0.6; animation: pulse 3.5s infinite 0.5s; }
@@ -128,67 +57,52 @@
 
         body {
             background: linear-gradient(145deg, #fef7e8 0%, #fef0e0 100%);
-            font-family: "LXGW WenKai", sans-serif;
+            font-family: "LXGW WenKai", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
             color: #2c2418;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
             position: relative;
         }
 
-        .simple-header h1,
-        .simple-header p,
-        .question,
-        .options p,
-        .answer-btn,
-        .page-btn,
-        .footer {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
-
         .container {
-            max-width: 880px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 24px 20px 60px;
             position: relative;
             z-index: 1;
         }
 
+        /* 头部 */
         .simple-header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
         .simple-header h1 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 700;
             color: #b91c1c;
-            letter-spacing: -0.3px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         .simple-header p {
             font-size: 1rem;
             color: #8b6946;
-            margin-top: 10px;
-            font-weight: 450;
+            margin-top: 8px;
         }
         .simple-stats {
             display: flex;
             justify-content: center;
             gap: 16px;
-            margin-top: 16px;
+            margin-top: 14px;
             flex-wrap: wrap;
         }
         .simple-stats span {
             background: rgba(185, 28, 28, 0.08);
             border-radius: 40px;
-            padding: 5px 16px;
+            padding: 5px 18px;
             font-size: 0.85rem;
             font-weight: 500;
             color: #b45309;
@@ -197,6 +111,7 @@
             gap: 6px;
         }
 
+        /* 选项卡 */
         .tabs {
             display: flex;
             gap: 14px;
@@ -205,36 +120,28 @@
             padding: 6px;
             border-radius: 60px;
             margin-bottom: 28px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid #ffe6cf;
         }
         .tab {
             flex: 1;
             text-align: center;
-            padding: 14px 12px;
+            padding: 12px 8px;
             border-radius: 56px;
             font-weight: 600;
             font-size: 0.95rem;
             background: transparent;
             border: none;
             cursor: pointer;
-            transition: all 0.25s ease;
             color: #7a5a3a;
         }
-        .tab i {
-            margin-right: 8px;
-            font-size: 1rem;
-        }
+        .tab i { margin-right: 8px; }
         .tab.active {
             background: #b91c1c;
             color: white;
             box-shadow: 0 6px 14px rgba(185,28,28,0.3);
         }
-        .tab:hover:not(.active) {
-            background: #fff0e4;
-            color: #b45309;
-        }
 
+        /* 搜索框 */
         .search-wrapper {
             margin-bottom: 28px;
         }
@@ -246,17 +153,11 @@
             background: white;
             font-size: 0.9rem;
             outline: none;
-            transition: all 0.25s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            font-weight: 450;
+            font-family: inherit;
         }
         .search-input:focus {
             border-color: #b91c1c;
-            box-shadow: 0 0 0 4px rgba(185,28,28,0.1);
-        }
-        .search-input::placeholder {
-            color: #c9ad8a;
-            font-weight: 400;
+            box-shadow: 0 0 0 3px rgba(185,28,28,0.1);
         }
 
         .cards-list {
@@ -270,12 +171,11 @@
             padding: 24px 28px;
             border: 1px solid #f5e6d8;
             box-shadow: 0 8px 20px -8px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
         .card:hover {
             transform: translateY(-2px);
             box-shadow: 0 16px 30px -12px rgba(0,0,0,0.1);
-            border-color: #ffd6b3;
         }
         .card-header {
             display: flex;
@@ -305,7 +205,6 @@
             font-size: 1rem;
             line-height: 1.5;
             margin: 14px 0 12px;
-            color: #2c2418;
         }
         .options {
             background: #fefbf7;
@@ -314,7 +213,6 @@
             margin: 12px 0;
             border-left: 4px solid #b91c1c;
             font-size: 0.9rem;
-            font-weight: 450;
         }
         .options p {
             margin: 7px 0;
@@ -328,8 +226,6 @@
             font-size: 0.55rem;
             margin-right: 6px;
         }
-        
-        /* ========== 关键修改：答案区域垂直排列 ========== */
         .answer-area {
             margin-top: 18px;
             padding-top: 16px;
@@ -339,7 +235,6 @@
             gap: 12px;
             align-items: flex-start;
         }
-        
         .answer-btn {
             background: #f5ede5;
             border: none;
@@ -364,20 +259,14 @@
             border-radius: 28px;
             font-size: 0.9rem;
             color: #2a6e3a;
-            flex: 1;
             display: none;
             line-height: 1.6;
             border-left: 4px solid #3ba35a;
-            font-weight: 450;
-            white-space: normal;
-            word-wrap: break-word;
-            word-break: break-word;
             width: 100%;
         }
         .answer-content.show {
             display: block;
         }
-
         .pagination {
             display: flex;
             justify-content: center;
@@ -394,30 +283,20 @@
             font-weight: 600;
             cursor: pointer;
             color: #7a5a3a;
-            transition: all 0.2s;
             font-size: 0.85rem;
-            min-width: 44px;
         }
         .page-btn.active {
             background: #b91c1c;
             color: white;
             border-color: #b91c1c;
-            box-shadow: 0 4px 10px rgba(185,28,28,0.2);
-        }
-        .page-btn:hover:not(.active) {
-            background: #fff4e8;
-            border-color: #d4a373;
-            transform: translateY(-1px);
         }
         .page-info {
             background: #fff7ef;
             padding: 7px 20px;
             border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: 500;
             color: #b07a48;
         }
-
         .footer {
             text-align: center;
             margin-top: 48px;
@@ -425,75 +304,236 @@
             border-top: 1px solid #f0e0d0;
             color: #bf8f62;
             font-size: 0.75rem;
-            font-weight: 450;
         }
-
         .empty-state {
             text-align: center;
             padding: 50px 24px;
             background: rgba(255,248,235,0.9);
             border-radius: 40px;
             color: #bc7a3c;
-            font-size: 0.95rem;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 16px 16px 40px; }
+            .tab { font-size: 0.8rem; padding: 8px 4px; }
+            .card { padding: 18px; }
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #f0e8e0; }
+        ::-webkit-scrollbar-thumb { background: #d4a373; border-radius: 10px; }
+
+        /* ========== 圆形悬浮按钮 + 展开面板 ========== */
+        .fab-container {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            z-index: 1000;
         }
 
+        /* 圆形按钮 */
+        .fab-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b91c1c, #dc2626);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1001;
+        }
+        .fab-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(185, 28, 28, 0.5);
+        }
+        .fab-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        /* 展开面板 */
+        .expand-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 380px;
+            max-width: calc(100vw - 40px);
+            background: rgba(255, 255, 250, 0.98);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+            pointer-events: none;
+            transform-origin: bottom right;
+            cursor: grab;
+        }
+        .expand-panel.dragging {
+            cursor: grabbing;
+        }
+        .expand-panel:active {
+            cursor: grabbing;
+        }
+        .expand-panel.open {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* 面板头部（可拖拽区域） */
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+            background: linear-gradient(125deg, #b91c1c, #dc2626);
+            border-radius: 28px 28px 0 0;
+            color: white;
+            cursor: grab;
+        }
+        .panel-header:active {
+            cursor: grabbing;
+        }
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            font-size: 1rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: scale(1.05);
+        }
+
+        /* 面板内容 */
+        .panel-body {
+            padding: 16px;
+            max-height: 480px;
+            overflow-y: auto;
+        }
+        /* 标签页切换 */
+        .panel-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            background: #f5ede5;
+            padding: 4px;
+            border-radius: 50px;
+        }
+        .panel-tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px 6px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #8b6946;
+            transition: all 0.2s;
+        }
+        .panel-tab.active {
+            background: #b91c1c;
+            color: white;
+        }
+        .panel-tab-content {
+            display: none;
+        }
+        .panel-tab-content.active {
+            display: block;
+        }
+        .contrast-item {
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+            padding: 8px 10px;
+            background: #fefaf4;
+            border-radius: 20px;
+        }
+        .contrast-term {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+        .joule-step {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+        }
+        .step-num {
+            background: #b91c1c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .method-item {
+            margin-bottom: 14px;
+            padding: 8px 10px;
+            background: #fefaf4;
+            border-radius: 20px;
+        }
+        .method-title {
+            font-weight: 700;
+            color: #b45309;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+        .method-desc {
+            font-size: 0.78rem;
+            color: #5a4a32;
+            line-height: 1.5;
+            padding-left: 24px;
+        }
+        .tip-box {
+            background: #fff3e6;
+            border-radius: 20px;
+            padding: 10px 12px;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 12px;
+        }
         @media (max-width: 640px) {
-            .container {
-                padding: 16px 16px 40px;
-            }
-            .simple-header h1 {
-                font-size: 1.5rem;
-            }
-            .simple-header p {
-                font-size: 0.85rem;
-            }
-            .tab {
-                font-size: 0.78rem;
-                padding: 10px 6px;
-            }
-            .card {
-                padding: 18px;
-            }
-            .question {
-                font-size: 0.94rem;
-            }
-            .options {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-            .answer-btn {
-                padding: 6px 16px;
-                font-size: 0.8rem;
-            }
-            .page-btn {
-                padding: 5px 12px;
-                font-size: 0.8rem;
-                min-width: 38px;
-            }
-            .page-info {
-                padding: 4px 14px;
-                font-size: 0.8rem;
-            }
-            .circle-1 { width: 180px; height: 180px; top: -40px; right: -40px; }
-            .rounded-square { width: 120px; height: 120px; }
-            .triangle { border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 100px solid rgba(185,28,28,0.07); }
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f0e8e0;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d4a373;
-            border-radius: 10px;
+            .fab-container { bottom: 80px; right: 16px; }
+            .expand-panel { width: 340px; right: 0; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
 <div class="geometry-bg">
     <div class="geo-shape circle-1"></div>
     <div class="geo-shape circle-2"></div>
@@ -501,21 +541,12 @@
     <div class="geo-shape rounded-square-2"></div>
     <div class="geo-shape triangle"></div>
     <div class="geo-shape triangle-2"></div>
-    <div class="dot-group">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
+    <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
 </div>
 
 <div class="container">
     <div class="simple-header">
-        <h1>
-            <i class="fas fa-flag-checkered" style="color: #b91c1c;"></i>
-            党的知识考学
-        </h1>
+        <h1><i class="fas fa-flag-checkered" style="color: #b91c1c;"></i> 党的知识考学</h1>
         <p>习近平总书记重要批示 · 党章党规 · 党史与时政</p>
         <div class="simple-stats">
             <span><i class="fas fa-database"></i> 单选 150 题</span>
@@ -537,30 +568,252 @@
 
     <div class="footer">
         <i class="fas fa-heart" style="color: #e35f5f;"></i> 学思践悟 · 红心向党 <i class="fas fa-heart" style="color: #e35f5f;"></i><br>
-        <i class="fas fa-trophy" style="color: #ffd700;"></i> ChenShang制作 ·  喜欢就夸我！ <i class="fas fa-trophy" style="color: #ffd700;"></i><br>
-        <!-- 目标 p 标签 -->
-        <p id="yiyanText">加载中...</p>
-    
-        <script>
-            // 使用更稳定的 Hitokoto API
-            fetch('https://v1.hitokoto.cn/')
-                .then(response => response.json()) // 注意：这个接口返回的是 JSON
-                .then(data => {
-                    // 从返回的JSON对象中取出句子内容
-                    document.getElementById('yiyanText').textContent = data.hitokoto;
-                })
-                .catch(error => {
-                    console.error('获取失败:', error);
-                    document.getElementById('yiyanText').textContent = '今日一言加载失败，但求知之心不减。';
-                });
-        </script>
-        权威题库 · 随学随测 · 分页精学
+        <span id="yiyanText">加载中...</span><br>权威题库 · 分页精学
+    </div>
+</div>
+
+<!-- 圆形悬浮按钮 + 展开面板 -->
+<div class="fab-container">
+    <button class="fab-btn" id="fabBtn">
+        <i class="fas fa-lightbulb"></i>
+    </button>
+    <div class="expand-panel" id="expandPanel">
+        <div class="panel-header" id="panelHeader">
+            <div class="panel-title">
+                <i class="fas fa-lightbulb"></i> 学习助手
+            </div>
+            <button class="close-btn" id="closePanelBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-body" id="panelBody">
+            <!-- 标签页切换 -->
+            <div class="panel-tabs">
+                <button class="panel-tab active" data-tab="contrast">📊 对比记忆</button>
+                <button class="panel-tab" data-tab="joule">⚡ 焦耳四步法</button>
+                <button class="panel-tab" data-tab="methods">🧠 科学记忆法</button>
+            </div>
+
+            <!-- 对比记忆 -->
+            <div class="panel-tab-content active" id="tabContrast">
+                <div class="contrast-item">
+                    <div class="contrast-term">📌 四个意识 vs 四个自信</div>
+                    <div><strong>四个意识：</strong>政治意识、大局意识、核心意识、看齐意识</div>
+                    <div><strong>四个自信：</strong>道路自信、理论自信、制度自信、文化自信</div>
+                    <div style="font-size:0.7rem; color:#b97f3a;">✨ 口诀：意识"政大核心看"，自信"路理制文"</div>
+                </div>
+                <div class="contrast-item">
+                    <div class="contrast-term">⚙️ 四大考验 vs 四种危险</div>
+                    <div><strong>四大考验：</strong>执政、改革开放、市场经济、外部环境</div>
+                    <div><strong>四种危险：</strong>精神懈怠、能力不足、脱离群众、消极腐败</div>
+                    <div style="font-size:0.7rem; color:#b97f3a;">✨ 危险：精、能、脱、消；考验：执、改、市、外</div>
+                </div>
+                <div class="contrast-item">
+                    <div class="contrast-term">📖 四个全面 vs 五位一体</div>
+                    <div><strong>四个全面：</strong>全面建设社会主义现代化国家、全面深化改革、全面依法治国、全面从严治党</div>
+                    <div><strong>五位一体：</strong>经济、政治、文化、社会、生态文明建设</div>
+                </div>
+                <div class="contrast-item">
+                    <div class="contrast-term">🔹 三会一课 vs 两学一做</div>
+                    <div><strong>三会一课：</strong>支部党员大会、支委会、党小组会 + 党课</div>
+                    <div><strong>两学一做：</strong>学党章党规、学系列讲话，做合格党员</div>
+                </div>
+            </div>
+
+            <!-- 焦耳学习法 -->
+            <div class="panel-tab-content" id="tabJoule">
+                <div class="joule-step">
+                    <span class="step-num">1</span>
+                    <span><strong>控制变量 · 单点突破</strong><br>一次只攻一个主题，不混背</span>
+                </div>
+                <div class="joule-step">
+                    <span class="step-num">2</span>
+                    <span><strong>转换法 · 化抽象为具体</strong><br>编口诀、画表格、关键词串联</span>
+                </div>
+                <div class="joule-step">
+                    <span class="step-num">3</span>
+                    <span><strong>主动自测 · 制造差异</strong><br>变换题型，限时挑战</span>
+                </div>
+                <div class="joule-step">
+                    <span class="step-num">4</span>
+                    <span><strong>数据反馈 · 定量追踪</strong><br>记录正确率，用进步曲线激励自己</span>
+                </div>
+                <div class="tip-box">
+                    💡 <strong>今日行动：</strong>选一个易混点，用上面方法复习5分钟！
+                </div>
+            </div>
+
+            <!-- 科学记忆方法 -->
+            <div class="panel-tab-content" id="tabMethods">
+                <div class="method-item">
+                    <div class="method-title">🎯 关键词串记法</div>
+                    <div class="method-desc">只背关键词，然后串联。如"政大核心看"→四个意识。效率提升3倍。</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">📝 口诀/顺口溜法</div>
+                    <div class="method-desc">把知识点编成朗朗上口的顺口溜，记忆更轻松。</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">🌙 睡前背 + 起床复习</div>
+                    <div class="method-desc">睡前30分钟背新内容，大脑自动整理；起床30分钟复习，效率提升40%。</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">⏱️ 5分钟微复习法</div>
+                    <div class="method-desc">每天分散5-6次，每次5-10分钟，比集中2小时效果好且不累。</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">🧠 主动回忆法</div>
+                    <div class="method-desc">看题→合书回想→想不起再看。记忆效果是单纯阅读的3倍！</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">🗣️ 费曼学习法</div>
+                    <div class="method-desc">假装教别人，用自己的话讲清楚。讲不出的地方就是薄弱点。</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">📅 艾宾浩斯复习表</div>
+                    <div class="method-desc">20分钟→1小时→1天→2天→4天→7天→15天，科学对抗遗忘。</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-title">🎙️ 录音循环法</div>
+                    <div class="method-desc">录下要背的内容，通勤、做家务时反复听，完全不累。</div>
+                </div>
+                <div class="tip-box">
+                    💪 <strong>小建议：</strong>选2-3个方法坚持用，效果远超死记硬背！
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-const choiceData = [];
+// 名言API
+fetch('https://v1.hitokoto.cn/')
+    .then(res => res.json())
+    .then(data => { document.getElementById('yiyanText').innerHTML = `✨ ${data.hitokoto} ✨`; })
+    .catch(() => { document.getElementById('yiyanText').innerHTML = '📖 学而时习之，不亦说乎。'; });
 
+// ==================== 圆形悬浮按钮控制 ====================
+const fabBtn = document.getElementById('fabBtn');
+const expandPanel = document.getElementById('expandPanel');
+const closePanelBtn = document.getElementById('closePanelBtn');
+let isOpen = false;
+
+function openPanel() {
+    isOpen = true;
+    expandPanel.classList.add('open');
+    fabBtn.style.transform = 'scale(1.1)';
+    setTimeout(() => { fabBtn.style.transform = ''; }, 200);
+}
+
+function closePanel() {
+    isOpen = false;
+    expandPanel.classList.remove('open');
+}
+
+fabBtn.addEventListener('click', () => {
+    if (isOpen) {
+        closePanel();
+    } else {
+        openPanel();
+    }
+});
+
+closePanelBtn.addEventListener('click', () => {
+    closePanel();
+});
+
+// 点击面板外部关闭（可选）
+document.addEventListener('click', (e) => {
+    if (isOpen && !expandPanel.contains(e.target) && !fabBtn.contains(e.target)) {
+        closePanel();
+    }
+});
+
+// ==================== 面板标签页切换 ====================
+const panelTabs = document.querySelectorAll('.panel-tab');
+const tabContents = document.querySelectorAll('.panel-tab-content');
+
+panelTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
+        panelTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        tabContents.forEach(content => content.classList.remove('active'));
+        if (target === 'contrast') document.getElementById('tabContrast').classList.add('active');
+        if (target === 'joule') document.getElementById('tabJoule').classList.add('active');
+        if (target === 'methods') document.getElementById('tabMethods').classList.add('active');
+    });
+});
+
+// ==================== 面板拖拽功能 ====================
+let isDraggingPanel = false;
+let dragStartX = 0, dragStartY = 0;
+let panelLeft = 0, panelTop = 0;
+
+const panelHeader = document.getElementById('panelHeader');
+
+function getPanelPosition() {
+    const rect = expandPanel.getBoundingClientRect();
+    const containerRect = expandPanel.parentElement.getBoundingClientRect();
+    return { left: rect.left, top: rect.top };
+}
+
+function onPanelMouseDown(e) {
+    if (e.target.closest('.close-btn')) return;
+    e.preventDefault();
+    isDraggingPanel = true;
+    const rect = expandPanel.getBoundingClientRect();
+    dragStartX = e.clientX - rect.left;
+    dragStartY = e.clientY - rect.top;
+    panelLeft = rect.left;
+    panelTop = rect.top;
+    expandPanel.style.position = 'fixed';
+    expandPanel.style.left = panelLeft + 'px';
+    expandPanel.style.top = panelTop + 'px';
+    expandPanel.style.right = 'auto';
+    expandPanel.style.bottom = 'auto';
+    expandPanel.classList.add('dragging');
+}
+
+function onPanelMouseMove(e) {
+    if (!isDraggingPanel) return;
+    e.preventDefault();
+    let newLeft = e.clientX - dragStartX;
+    let newTop = e.clientY - dragStartY;
+    const maxX = window.innerWidth - expandPanel.offsetWidth - 10;
+    const maxY = window.innerHeight - expandPanel.offsetHeight - 10;
+    newLeft = Math.max(10, Math.min(newLeft, maxX));
+    newTop = Math.max(10, Math.min(newTop, maxY));
+    expandPanel.style.left = newLeft + 'px';
+    expandPanel.style.top = newTop + 'px';
+}
+
+function onPanelMouseUp() {
+    if (!isDraggingPanel) return;
+    isDraggingPanel = false;
+    expandPanel.classList.remove('dragging');
+}
+
+panelHeader.addEventListener('mousedown', onPanelMouseDown);
+document.addEventListener('mousemove', onPanelMouseMove);
+document.addEventListener('mouseup', onPanelMouseUp);
+
+// 窗口大小改变时调整边界
+window.addEventListener('resize', () => {
+    if (expandPanel.style.left) {
+        const left = parseFloat(expandPanel.style.left);
+        const top = parseFloat(expandPanel.style.top);
+        const maxX = window.innerWidth - expandPanel.offsetWidth - 10;
+        const maxY = window.innerHeight - expandPanel.offsetHeight - 10;
+        if (left > maxX) expandPanel.style.left = maxX + 'px';
+        if (top > maxY) expandPanel.style.top = maxY + 'px';
+        if (left < 10) expandPanel.style.left = '10px';
+        if (top < 10) expandPanel.style.top = '10px';
+    }
+});
+
+// ==================== 题库数据 ====================
+const choiceData = [];
 const part1 = [
     { q:"习近平总书记对广东工作的重要批示中，'四个坚持'为:坚持党的领导、坚持中国特色社会主义、______、坚持改革开放。", opts:["A.坚持新发展理念","B.坚持服务大局","C.坚持整合资源","D.坚持艰苦实干"], ans:"A" },
     { q:"习近平总书记对广东工作的重要批示中，'三个支撑'为:为全国推进供给侧结构性改革、______、构建开放型经济新体制提供支撑。", opts:["A.加快产业转型升级","B.实施'一带一路'战略","C.实施创新驱动发展战略","D.全面建成小康社会"], ans:"C" },
@@ -680,126 +933,23 @@ const essayData = [
     { type:"应知应会", q:"“两学一做”是什么？", a:"学党章党规、学系列讲话，做合格党员。" },
     { type:"应知应会", q:"四个合格”是什么？", a:"政治合格、执行纪律合格、品德合格、发挥作用合格。" },
     { type:"应知应会", q:"习近平总书记强调什么？", a:"习近平总书记强调发展是第一要务，人才是第一资源，创新是第一动力。" },
-    { type:"应知应会", q:"“三个务必”是什么？", a:"39、习近平代表中国共产党第十九届中央委员会于2022年10月16日在中国共产党第二十次全国代表大会上向大会所作的报告上提出的。要求全党同志务必不忘初心、牢记使命，务必谦虚谨慎、艰苦奋斗，务必敢于斗争、善于斗争，坚定历史自信，增强历史主动，谱写新时代中国特色社会主义更加绚丽的华章。" },
+    { type:"应知应会", q:"“三个务必”是什么？", a:"习近平代表中国共产党第十九届中央委员会于2022年10月16日在中国共产党第二十次全国代表大会上向大会所作的报告上提出的。要求全党同志务必不忘初心、牢记使命，务必谦虚谨慎、艰苦奋斗，务必敢于斗争、善于斗争，坚定历史自信，增强历史主动，谱写新时代中国特色社会主义更加绚丽的华章。" },
     
 ];
 while (essayData.length < 58) essayData.push({ type:"应知应会", q:"请简述新时代党的建设总要求。", a:"坚持和加强党的全面领导，坚持党要管党、全面从严治党，以加强党的长期执政能力建设、先进性和纯洁性建设为主线，以党的政治建设为统领，全面推进党的各项建设。" });
-
-let currentFilter = '';
-let currentTab = 'choice';
-let currentPage = 1;
-const PAGE_SIZE = 5;
-
-function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
-function getFullAnswer(q) {
-    if (!q.opts) return q.ans;
-    let letter = q.ans;
-    let match = q.opts.find(o => o.startsWith(letter + '.') || o.startsWith(letter + '、'));
-    return match ? `${letter}. ${match.substring(2)}` : `${letter}. ${q.ans}`;
-}
-
-function renderPagination(total) {
-    let totalPages = Math.ceil(total / PAGE_SIZE);
-    if (totalPages <= 1) return '';
-    let html = `<div class="pagination"><button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:0.5"' : ''}><i class="fas fa-chevron-left"></i> 上一页</button>`;
-    let start = Math.max(1, currentPage - 2), end = Math.min(totalPages, currentPage + 2);
-    if (start > 1) { html += `<button class="page-btn" onclick="goToPage(1)">1</button>`; if (start > 2) html += `<span class="page-info">···</span>`; }
-    for (let i = start; i <= end; i++) html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-    if (end < totalPages) { if (end < totalPages - 1) html += `<span class="page-info">···</span>`; html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
-    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:0.5"' : ''}>下一页 <i class="fas fa-chevron-right"></i></button>`;
-    html += `<span class="page-info"><i class="fas fa-layer-group"></i> 第 ${currentPage} / ${totalPages} 页</span></div>`;
-    return html;
-}
-
-function renderChoice() {
-    let filtered = choiceData;
-    if (currentFilter.trim()) {
-        let kw = currentFilter.toLowerCase();
-        filtered = choiceData.filter(q => q.q.toLowerCase().includes(kw) || (q.opts && q.opts.some(o => o.toLowerCase().includes(kw))));
-    }
-    let total = filtered.length;
-    let totalPages = Math.ceil(total / PAGE_SIZE);
-    if (currentPage > totalPages) currentPage = 1;
-    let start = (currentPage - 1) * PAGE_SIZE;
-    let pageItems = filtered.slice(start, start + PAGE_SIZE);
-    let container = document.getElementById('choiceList');
-    if (!container) return;
-    if (total === 0) { container.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i> 未找到相关题目，试试其他关键词～</div>'; return; }
-    let html = '<div class="cards-list">';
-    for (let q of pageItems) {
-        let full = getFullAnswer(q);
-        html += `<div class="card"><div class="card-header"><span class="badge"><i class="fas fa-dot-circle"></i> 单选题</span><span class="q-num">第 ${q.index} 题</span></div>
-        <div class="question">${escapeHtml(q.q)}</div><div class="options">${q.opts.map(o => `<p>${escapeHtml(o)}</p>`).join('')}</div>
-        <div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('c_${q.index}')"><i class="far fa-eye"></i> 查看答案</button>
-        <div class="answer-content" id="ans_c_${q.index}"><i class="fas fa-check-circle"></i> <strong>参考答案：</strong> ${escapeHtml(full)}</div></div></div>`;
-    }
-    html += '</div>' + renderPagination(total);
-    container.innerHTML = html;
-}
-
-function renderEssay() {
-    let total = essayData.length;
-    let totalPages = Math.ceil(total / PAGE_SIZE);
-    if (currentPage > totalPages) currentPage = 1;
-    let start = (currentPage - 1) * PAGE_SIZE;
-    let pageItems = essayData.slice(start, start + PAGE_SIZE);
-    let container = document.getElementById('essayList');
-    if (!container) return;
-    let html = '<div class="cards-list">';
-    for (let i = 0; i < pageItems.length; i++) {
-        let q = pageItems[i];
-        let idx = start + i + 1;
-        let isSimple = q.type === '简答题';
-        let formattedAnswer = escapeHtml(q.a).replace(/\n/g, '<br>');
-        html += `<div class="card"><div class="card-header"><span class="badge" style="${isSimple ? 'background:#fee2e2;color:#991b1b' : 'background:#e0f2fe;color:#0c4a6e'}"><i class="fas ${isSimple ? 'fa-question-circle' : 'fa-gem'}"></i> ${q.type}</span><span class="q-num">${isSimple ? '简答' : '应知'}.${idx}</span></div>
-        <div class="question">${escapeHtml(q.q)}</div><div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('e_${idx}')"><i class="far fa-eye"></i> 查看答案</button>
-        <div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> <strong>要点：</strong><br><div style="white-space: normal; word-wrap: break-word; word-break: break-word; display: inline-block; width: 100%;">${formattedAnswer}</div></div></div></div>`;
-    }
-    html += '</div>' + renderPagination(total);
-    container.innerHTML = html;
-}
-
-window.toggleAnswer = function (id) {
-    let div = document.getElementById('ans_' + id);
-    let btn = div?.previousElementSibling;
-    if (div) {
-        if (div.classList.contains('show')) {
-            div.classList.remove('show');
-            if (btn) btn.innerHTML = '<i class="far fa-eye"></i> 查看答案';
-        } else {
-            div.classList.add('show');
-            if (btn) btn.innerHTML = '<i class="far fa-eye-slash"></i> 隐藏答案';
-        }
-    }
-};
-window.goToPage = function (page) {
-    let totalItems = currentTab === 'choice' ? (currentFilter ? choiceData.filter(q => q.q.toLowerCase().includes(currentFilter) || (q.opts && q.opts.some(o => o.toLowerCase().includes(currentFilter)))).length : choiceData.length) : essayData.length;
-    let totalPages = Math.ceil(totalItems / PAGE_SIZE);
-    if (page < 1 || page > totalPages) return;
-    currentPage = page;
-    if (currentTab === 'choice') renderChoice(); else renderEssay();
-};
-function switchTab(tab) {
-    currentTab = tab;
-    currentPage = 1;
-    let choiceBtn = document.getElementById('tabChoice'), essayBtn = document.getElementById('tabEssay');
-    let choiceDiv = document.getElementById('choiceList'), essayDiv = document.getElementById('essayList');
-    let searchBox = document.getElementById('searchBox');
-    if (tab === 'choice') {
-        choiceBtn.classList.add('active'); essayBtn.classList.remove('active');
-        choiceDiv.style.display = 'block'; essayDiv.style.display = 'none';
-        searchBox.style.display = 'block';
-        renderChoice();
-    } else {
-        choiceBtn.classList.remove('active'); essayBtn.classList.add('active');
-        choiceDiv.style.display = 'none'; essayDiv.style.display = 'block';
-        searchBox.style.display = 'none';
-        renderEssay();
-    }
-}
-document.getElementById('searchInput').addEventListener('input', function (e) { currentFilter = e.target.value; currentPage = 1; if (currentTab === 'choice') renderChoice(); });
-document.getElementById('tabChoice').onclick = () => switchTab('choice');
-document.getElementById('tabEssay').onclick = () => switchTab('essay');
+let currentFilter='', currentTab='choice', currentPage=1;
+const PAGE_SIZE=5;
+function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+function getFullAnswer(q){ if(!q.opts) return q.ans; let letter=q.ans; let match=q.opts.find(o=>o.startsWith(letter+'.')||o.startsWith(letter+'、')); return match?`${letter}. ${match.substring(2)}`:`${letter}. ${q.ans}`; }
+function renderPagination(total){ let totalPages=Math.ceil(total/PAGE_SIZE); if(totalPages<=1) return ''; let html=`<div class="pagination"><button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled style="opacity:0.5"':''}><i class="fas fa-chevron-left"></i> 上一页</button>`; let start=Math.max(1,currentPage-2), end=Math.min(totalPages,currentPage+2); if(start>1){ html+=`<button class="page-btn" onclick="goToPage(1)">1</button>`; if(start>2) html+=`<span class="page-info">···</span>`; } for(let i=start;i<=end;i++) html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`; if(end<totalPages){ if(end<totalPages-1) html+=`<span class="page-info">···</span>`; html+=`<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; } html+=`<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===totalPages?'disabled style="opacity:0.5"':''}>下一页 <i class="fas fa-chevron-right"></i></button><span class="page-info">第 ${currentPage} / ${totalPages} 页</span></div>`; return html; }
+function renderChoice(){ let filtered=choiceData; if(currentFilter.trim()){ let kw=currentFilter.toLowerCase(); filtered=choiceData.filter(q=>q.q.toLowerCase().includes(kw)||(q.opts&&q.opts.some(o=>o.toLowerCase().includes(kw)))); } let total=filtered.length; if(currentPage>Math.ceil(total/PAGE_SIZE)) currentPage=1; let start=(currentPage-1)*PAGE_SIZE, pageItems=filtered.slice(start,start+PAGE_SIZE); let container=document.getElementById('choiceList'); if(total===0){ container.innerHTML='<div class="empty-state">未找到题目</div>'; return; } let html='<div class="cards-list">'; for(let q of pageItems){ let full=getFullAnswer(q); html+=`<div class="card"><div class="card-header"><span class="badge">单选题</span><span class="q-num">第 ${q.index} 题</span></div><div class="question">${escapeHtml(q.q)}</div><div class="options">${q.opts.map(o=>`<p>${escapeHtml(o)}</p>`).join('')}</div><div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('c_${q.index}')"><i class="far fa-eye"></i> 查看答案</button><div class="answer-content" id="ans_c_${q.index}">参考答案： ${escapeHtml(full)}</div></div></div>`; } html+='</div>'+renderPagination(total); container.innerHTML=html; }
+function renderEssay(){ let total=essayData.length; if(currentPage>Math.ceil(total/PAGE_SIZE)) currentPage=1; let start=(currentPage-1)*PAGE_SIZE, pageItems=essayData.slice(start,start+PAGE_SIZE); let container=document.getElementById('essayList'); let html='<div class="cards-list">'; for(let i=0;i<pageItems.length;i++){ let q=pageItems[i]; let idx=start+i+1; let isSimple=q.type==='简答题'; let ansFormatted=escapeHtml(q.a).replace(/\n/g,'<br>'); html+=`<div class="card"><div class="card-header"><span class="badge" style="${isSimple?'background:#fee2e2;color:#991b1b':'background:#e0f2fe;color:#0c4a6e'}">${q.type}</span><span class="q-num">${isSimple?'简答':'应知'}.${idx}</span></div><div class="question">${escapeHtml(q.q)}</div><div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('e_${idx}')"><i class="far fa-eye"></i> 查看答案</button><div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> ${ansFormatted}</div></div></div>`; } html+='</div>'+renderPagination(total); container.innerHTML=html; }
+window.toggleAnswer=function(id){ let div=document.getElementById('ans_'+id); let btn=div?.previousElementSibling; if(div){ if(div.classList.contains('show')){ div.classList.remove('show'); if(btn) btn.innerHTML='<i class="far fa-eye"></i> 查看答案'; }else{ div.classList.add('show'); if(btn) btn.innerHTML='<i class="far fa-eye-slash"></i> 隐藏答案'; } } };
+window.goToPage=function(page){ let totalItems=currentTab==='choice'?(currentFilter?choiceData.filter(q=>q.q.toLowerCase().includes(currentFilter)||(q.opts&&q.opts.some(o=>o.toLowerCase().includes(currentFilter)))).length:choiceData.length):essayData.length; let totalPages=Math.ceil(totalItems/PAGE_SIZE); if(page<1||page>totalPages) return; currentPage=page; if(currentTab==='choice') renderChoice(); else renderEssay(); };
+function switchTab(tab){ currentTab=tab; currentPage=1; let choiceBtn=document.getElementById('tabChoice'), essayBtn=document.getElementById('tabEssay'); let choiceDiv=document.getElementById('choiceList'), essayDiv=document.getElementById('essayList'), searchBox=document.getElementById('searchBox'); if(tab==='choice'){ choiceBtn.classList.add('active'); essayBtn.classList.remove('active'); choiceDiv.style.display='block'; essayDiv.style.display='none'; searchBox.style.display='block'; renderChoice(); }else{ choiceBtn.classList.remove('active'); essayBtn.classList.add('active'); choiceDiv.style.display='none'; essayDiv.style.display='block'; searchBox.style.display='none'; renderEssay(); } }
+document.getElementById('searchInput').addEventListener('input',function(e){ currentFilter=e.target.value; currentPage=1; if(currentTab==='choice') renderChoice(); });
+document.getElementById('tabChoice').onclick=()=>switchTab('choice');
+document.getElementById('tabEssay').onclick=()=>switchTab('essay');
 switchTab('choice');
 </script>
 </body>
