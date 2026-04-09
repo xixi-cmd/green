@@ -321,7 +321,7 @@
         ::-webkit-scrollbar-track { background: #f0e8e0; }
         ::-webkit-scrollbar-thumb { background: #d4a373; border-radius: 10px; }
 
-        /* ========== 圆形悬浮按钮 + 展开面板 ========== */
+        /* ========== 圆形悬浮按钮 + 固定高度展开面板 ========== */
         .fab-container {
             position: fixed;
             bottom: 100px;
@@ -355,13 +355,14 @@
             transition: transform 0.3s ease;
         }
 
-        /* 展开面板 */
+        /* 展开面板 - 固定高度 */
         .expand-panel {
             position: absolute;
             bottom: 70px;
             right: 0;
             width: 380px;
             max-width: calc(100vw - 40px);
+            height: 460px;
             background: rgba(255, 255, 250, 0.98);
             backdrop-filter: blur(16px);
             border-radius: 28px;
@@ -373,6 +374,9 @@
             pointer-events: none;
             transform-origin: bottom right;
             cursor: grab;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         .expand-panel.dragging {
             cursor: grabbing;
@@ -397,6 +401,7 @@
             border-radius: 28px 28px 0 0;
             color: white;
             cursor: grab;
+            flex-shrink: 0;
         }
         .panel-header:active {
             cursor: grabbing;
@@ -427,11 +432,12 @@
             transform: scale(1.05);
         }
 
-        /* 面板内容 */
+        /* 面板内容 - 固定高度滚动 */
         .panel-body {
+            flex: 1;
             padding: 16px;
-            max-height: 480px;
             overflow-y: auto;
+            min-height: 0;
         }
         /* 标签页切换 */
         .panel-tabs {
@@ -441,6 +447,7 @@
             background: #f5ede5;
             padding: 4px;
             border-radius: 50px;
+            flex-shrink: 0;
         }
         .panel-tab {
             flex: 1;
@@ -528,7 +535,7 @@
         }
         @media (max-width: 640px) {
             .fab-container { bottom: 80px; right: 16px; }
-            .expand-panel { width: 340px; right: 0; }
+            .expand-panel { width: 340px; right: 0; height: 440px; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -572,7 +579,7 @@
     </div>
 </div>
 
-<!-- 圆形悬浮按钮 + 展开面板 -->
+<!-- 圆形悬浮按钮 + 固定高度展开面板 -->
 <div class="fab-container">
     <button class="fab-btn" id="fabBtn">
         <i class="fas fa-lightbulb"></i>
@@ -722,7 +729,7 @@ closePanelBtn.addEventListener('click', () => {
     closePanel();
 });
 
-// 点击面板外部关闭（可选）
+// 点击面板外部关闭
 document.addEventListener('click', (e) => {
     if (isOpen && !expandPanel.contains(e.target) && !fabBtn.contains(e.target)) {
         closePanel();
@@ -751,12 +758,6 @@ let dragStartX = 0, dragStartY = 0;
 let panelLeft = 0, panelTop = 0;
 
 const panelHeader = document.getElementById('panelHeader');
-
-function getPanelPosition() {
-    const rect = expandPanel.getBoundingClientRect();
-    const containerRect = expandPanel.parentElement.getBoundingClientRect();
-    return { left: rect.left, top: rect.top };
-}
 
 function onPanelMouseDown(e) {
     if (e.target.closest('.close-btn')) return;
@@ -798,7 +799,6 @@ panelHeader.addEventListener('mousedown', onPanelMouseDown);
 document.addEventListener('mousemove', onPanelMouseMove);
 document.addEventListener('mouseup', onPanelMouseUp);
 
-// 窗口大小改变时调整边界
 window.addEventListener('resize', () => {
     if (expandPanel.style.left) {
         const left = parseFloat(expandPanel.style.left);
@@ -933,7 +933,7 @@ const essayData = [
     { type:"应知应会", q:"“两学一做”是什么？", a:"学党章党规、学系列讲话，做合格党员。" },
     { type:"应知应会", q:"四个合格”是什么？", a:"政治合格、执行纪律合格、品德合格、发挥作用合格。" },
     { type:"应知应会", q:"习近平总书记强调什么？", a:"习近平总书记强调发展是第一要务，人才是第一资源，创新是第一动力。" },
-    { type:"应知应会", q:"“三个务必”是什么？", a:"习近平代表中国共产党第十九届中央委员会于2022年10月16日在中国共产党第二十次全国代表大会上向大会所作的报告上提出的。要求全党同志务必不忘初心、牢记使命，务必谦虚谨慎、艰苦奋斗，务必敢于斗争、善于斗争，坚定历史自信，增强历史主动，谱写新时代中国特色社会主义更加绚丽的华章。" },
+    { type:"应知应会", q:"“三个务必”是什么？", a:"39、习近平代表中国共产党第十九届中央委员会于2022年10月16日在中国共产党第二十次全国代表大会上向大会所作的报告上提出的。要求全党同志务必不忘初心、牢记使命，务必谦虚谨慎、艰苦奋斗，务必敢于斗争、善于斗争，坚定历史自信，增强历史主动，谱写新时代中国特色社会主义更加绚丽的华章。" },
     
 ];
 while (essayData.length < 58) essayData.push({ type:"应知应会", q:"请简述新时代党的建设总要求。", a:"坚持和加强党的全面领导，坚持党要管党、全面从严治党，以加强党的长期执政能力建设、先进性和纯洁性建设为主线，以党的政治建设为统领，全面推进党的各项建设。" });
