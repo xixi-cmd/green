@@ -128,19 +128,15 @@
 
         body {
             background: linear-gradient(145deg, #fef7e8 0%, #fef0e0 100%);
-            /* 优化字体渲染 - 解决锯齿问题 */
             font-family: "LXGW WenKai", sans-serif;
             color: #2c2418;
             min-height: 100vh;
-            /* 字体渲染优化关键属性 */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
-            font-smoothing: antialiased;
             position: relative;
         }
 
-        /* 针对中文的额外优化 */
         .simple-header h1,
         .simple-header p,
         .question,
@@ -153,7 +149,6 @@
             text-rendering: optimizeLegibility;
         }
 
-        /* 主容器 */
         .container {
             max-width: 880px;
             margin: 0 auto;
@@ -162,7 +157,6 @@
             z-index: 1;
         }
 
-        /* ========== 简洁头部 ========== */
         .simple-header {
             text-align: center;
             margin-bottom: 32px;
@@ -203,7 +197,6 @@
             gap: 6px;
         }
 
-        /* ========== 选项卡 ========== */
         .tabs {
             display: flex;
             gap: 14px;
@@ -242,7 +235,6 @@
             color: #b45309;
         }
 
-        /* ========== 搜索框 ========== */
         .search-wrapper {
             margin-bottom: 28px;
         }
@@ -267,7 +259,6 @@
             font-weight: 400;
         }
 
-        /* ========== 卡片 ========== */
         .cards-list {
             display: flex;
             flex-direction: column;
@@ -337,15 +328,18 @@
             font-size: 0.55rem;
             margin-right: 6px;
         }
+        
+        /* ========== 关键修改：答案区域垂直排列 ========== */
         .answer-area {
             margin-top: 18px;
             padding-top: 16px;
             border-top: 1px dashed #f0dbc0;
             display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
+            flex-direction: column;
+            gap: 12px;
             align-items: flex-start;
         }
+        
         .answer-btn {
             background: #f5ede5;
             border: none;
@@ -372,15 +366,18 @@
             color: #2a6e3a;
             flex: 1;
             display: none;
-            line-height: 1.55;
+            line-height: 1.6;
             border-left: 4px solid #3ba35a;
             font-weight: 450;
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: break-word;
+            width: 100%;
         }
         .answer-content.show {
             display: block;
         }
 
-        /* ========== 分页 ========== */
         .pagination {
             display: flex;
             justify-content: center;
@@ -421,7 +418,6 @@
             color: #b07a48;
         }
 
-        /* ========== 页脚 ========== */
         .footer {
             text-align: center;
             margin-top: 48px;
@@ -432,7 +428,6 @@
             font-weight: 450;
         }
 
-        /* ========== 空状态 ========== */
         .empty-state {
             text-align: center;
             padding: 50px 24px;
@@ -442,7 +437,6 @@
             font-size: 0.95rem;
         }
 
-        /* ========== 响应式 ========== */
         @media (max-width: 640px) {
             .container {
                 padding: 16px 16px 40px;
@@ -465,22 +459,21 @@
             }
             .options {
                 padding: 10px 14px;
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
             .answer-btn {
                 padding: 6px 16px;
-                font-size: 0.95rem;
+                font-size: 0.8rem;
             }
             .page-btn {
                 padding: 5px 12px;
-                font-size: 0.95rem;
+                font-size: 0.8rem;
                 min-width: 38px;
             }
             .page-info {
                 padding: 4px 14px;
-                font-size: 0.95rem;
+                font-size: 0.8rem;
             }
-            /* 手机端减小装饰图形尺寸 */
             .circle-1 { width: 180px; height: 180px; top: -40px; right: -40px; }
             .rounded-square { width: 120px; height: 120px; }
             .triangle { border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 100px solid rgba(185,28,28,0.07); }
@@ -501,18 +494,13 @@
 </head>
 <body>
 
-<!-- 几何图形背景层 (仅添加此处，未改动任何原有结构) -->
 <div class="geometry-bg">
-    <!-- 圆形 -->
     <div class="geo-shape circle-1"></div>
     <div class="geo-shape circle-2"></div>
-    <!-- 圆角方形 -->
     <div class="geo-shape rounded-square"></div>
     <div class="geo-shape rounded-square-2"></div>
-    <!-- 三角形 -->
     <div class="geo-shape triangle"></div>
     <div class="geo-shape triangle-2"></div>
-    <!-- 动态小圆点装饰 -->
     <div class="dot-group">
         <div class="dot"></div>
         <div class="dot"></div>
@@ -523,7 +511,6 @@
 </div>
 
 <div class="container">
-    <!-- 简洁头部 -->
     <div class="simple-header">
         <h1>
             <i class="fas fa-flag-checkered" style="color: #b91c1c;"></i>
@@ -537,13 +524,11 @@
         </div>
     </div>
 
-    <!-- 选项卡 -->
     <div class="tabs">
         <button class="tab active" id="tabChoice"><i class="fas fa-list-ul"></i> 单选题 (150)</button>
         <button class="tab" id="tabEssay"><i class="fas fa-feather-alt"></i> 简答 · 应知应会 (45)</button>
     </div>
 
-    <!-- 搜索 -->
     <div class="search-wrapper" id="searchBox">
         <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索单选题（题干或选项关键词）">
     </div>
@@ -559,7 +544,6 @@
 </div>
 
 <script>
-// ==================== 题库数据 ====================
 const choiceData = [];
 
 const part1 = [
@@ -656,7 +640,6 @@ const essayData = [
 ];
 while (essayData.length < 45) essayData.push({ type:"应知应会", q:"请简述新时代党的建设总要求。", a:"坚持和加强党的全面领导，坚持党要管党、全面从严治党，以加强党的长期执政能力建设、先进性和纯洁性建设为主线，以党的政治建设为统领，全面推进党的各项建设。" });
 
-// ==================== 渲染逻辑 ====================
 let currentFilter = '';
 let currentTab = 'choice';
 let currentPage = 1;
@@ -722,9 +705,10 @@ function renderEssay() {
         let q = pageItems[i];
         let idx = start + i + 1;
         let isSimple = q.type === '简答题';
+        let formattedAnswer = escapeHtml(q.a).replace(/\n/g, '<br>');
         html += `<div class="card"><div class="card-header"><span class="badge" style="${isSimple ? 'background:#fee2e2;color:#991b1b' : 'background:#e0f2fe;color:#0c4a6e'}"><i class="fas ${isSimple ? 'fa-question-circle' : 'fa-gem'}"></i> ${q.type}</span><span class="q-num">${isSimple ? '简答' : '应知'}.${idx}</span></div>
         <div class="question">${escapeHtml(q.q)}</div><div class="answer-area"><button class="answer-btn" onclick="toggleAnswer('e_${idx}')"><i class="far fa-eye"></i> 查看答案</button>
-        <div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> <strong>要点：</strong><br>${escapeHtml(q.a).replace(/\n/g, '<br>')}</div></div></div>`;
+        <div class="answer-content" id="ans_e_${idx}"><i class="fas fa-lightbulb"></i> <strong>要点：</strong><br><div style="white-space: normal; word-wrap: break-word; word-break: break-word; display: inline-block; width: 100%;">${formattedAnswer}</div></div></div></div>`;
     }
     html += '</div>' + renderPagination(total);
     container.innerHTML = html;
